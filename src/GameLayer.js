@@ -16,7 +16,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function(e) {
-        this.player.move(e);
+        this.player.startMove(e);
     },
 
     onKeyUp: function(e){

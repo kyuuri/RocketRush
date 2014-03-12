@@ -14,7 +14,29 @@ var Player = cc.Sprite.extend({
 
     	var pos = this.getPosition();
 
+        this.moveShip(pos);
+    },
 
+    startMove: function(direction) {
+        this.isMove(true, direction);
+    },
+
+    stopMove: function(stopDirection) {
+		this.isMove(false, stopDirection);
+    },
+
+    isMove: function(isMove, cDirection){
+        if(cDirection == Player.ARROWKEY.UP)
+            this.isUp = isMove;
+        if(cDirection == Player.ARROWKEY.DOWN)
+            this.isDown = isMove;
+        if(cDirection == Player.ARROWKEY.RIGHT)
+            this.isRight = isMove;
+        if(cDirection == Player.ARROWKEY.LEFT)
+            this.isLeft = isMove;
+    },
+
+    moveShip: function(pos){
         if(this.isUp && pos.y <= 770)
             this.setPosition( new cc.Point( pos.x, pos.y+7.5 ) );
         if(this.isRight && pos.x <= 570)
@@ -22,30 +44,9 @@ var Player = cc.Sprite.extend({
         if(this.isLeft && pos.x >= 30)
             this.setPosition( new cc.Point( pos.x-7.5, pos.y ) );
         if(this.isDown && pos.y >= 30)
-                this.setPosition( new cc.Point( pos.x, pos.y-7.5 ) );
-    },
-
-    move: function(direction) {
-        if(direction == Player.ARROWKEY.UP)
-            this.isUp = true;
-        if(direction == Player.ARROWKEY.DOWN)
-            this.isDown = true;
-        if(direction == Player.ARROWKEY.RIGHT)
-            this.isRight = true;
-        if(direction == Player.ARROWKEY.LEFT)
-            this.isLeft = true;
-    },
-
-    stopMove: function(stopDirection) {
-		if(stopDirection == Player.ARROWKEY.UP)
-            this.isUp = false;
-        if(stopDirection == Player.ARROWKEY.DOWN)
-            this.isDown = false;
-        if(stopDirection == Player.ARROWKEY.RIGHT)
-            this.isRight = false;
-        if(stopDirection == Player.ARROWKEY.LEFT)
-            this.isLeft = false;
+            this.setPosition( new cc.Point( pos.x, pos.y-7.5 ) );
     }
+
 });
 
 Player.MOVESPEED = 4;
