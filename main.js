@@ -27,6 +27,10 @@ var cocos2dApp = cc.Application.extend({
 
         director.runWithScene( new this.startScene() );
 
+        cc.LoaderScene.preload(g_resources, function () {
+            director.replaceScene( new this.startScene() );
+        }, this );
+
         return true;
     }
 });
