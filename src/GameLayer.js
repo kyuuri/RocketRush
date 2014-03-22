@@ -11,9 +11,14 @@ var GameLayer = cc.LayerColor.extend({
 
         this.obstacle = new Obstacle();
         this.obstacle.randomPosition();
+
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+        this.scoreLabel.setPosition( new cc.Point( 550, 750 ) );
+        this.score = 0;
         
         this.addChild( this.player, 1 );
         this.addChild( this.obstacle, 1 );
+        this.addChild( this.scoreLabel, 2 );
 
         this.player.scheduleUpdate();
         this.obstacle.scheduleUpdate();
@@ -34,6 +39,7 @@ var GameLayer = cc.LayerColor.extend({
         if(this.obstacle.closeTo(this.player)){
             this.obstacle.randomPosition();
         }
+        this.scoreLabel.setString( ++this.score );
     }
 });
 
