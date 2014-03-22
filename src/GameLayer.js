@@ -6,6 +6,8 @@ var GameLayer = cc.LayerColor.extend({
 
         this.setKeyboardEnabled( true );
 
+        this.state = GameLayer.STATES.FRONT;
+
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
 
@@ -28,18 +30,31 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function(e) {
-        this.player.startMove(e);
+        if(this.state == GameLayer.STATES.FRONT){
+            this.state = GameLayer.STATES.STARTED;
+            this.player.start();
+            this.obstacle.start();
+        }
+        if(this.state == GameLayer.STATES.STARTED){
+            this.player.startMove(e);
+        }
     },
 
     onKeyUp: function(e){
-        this.player.stopMove(e);
+        if(this.state == GameLayer.STATES.STARTED){
+            this.player.stopMove(e);
+        }
     },
 
     update: function() {
-        if(this.obstacle.closeTo(this.player)){
-            this.obstacle.randomPosition();
+        if(this.state == GameLayer.STATES.STARTED){
+            if(this.obstacle.closeTo(this.player)){
+                this.state.GameLayer.STATES.DEAD;
+                this.player.stop();
+                this.obstacle.stop();
+            }
+            this.scoreLabel.setString( ++this.score );
         }
-        this.scoreLabel.setString( ++this.score );
     }
 });
 

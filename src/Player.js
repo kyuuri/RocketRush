@@ -8,11 +8,15 @@ var Player = cc.Sprite.extend({
         this.isDown = false;
         this.isLeft = false;
         this.isRight = false;
+
+        this.started = false;
     },
 
-    update: function(dt) {
-    	var pos = this.getPosition();
-        this.moveShip(pos);
+    update: function(dt){
+        if(this.started){
+        	var pos = this.getPosition();
+            this.moveShip(pos);
+        }
     },
 
     startMove: function(direction) {
@@ -43,6 +47,14 @@ var Player = cc.Sprite.extend({
             this.setPosition( new cc.Point( pos.x-7.5, pos.y ) );
         if(this.isDown && pos.y >= 30)
             this.setPosition( new cc.Point( pos.x, pos.y-7.5 ) );
+    },
+
+    start: function(){
+        this.started = true;
+    },
+
+    stop: function(){
+        this.started = false;
     }
 
 });
