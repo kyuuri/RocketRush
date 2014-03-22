@@ -11,9 +11,7 @@ var Player = cc.Sprite.extend({
     },
 
     update: function(dt) {
-
     	var pos = this.getPosition();
-
         this.moveShip(pos);
     },
 

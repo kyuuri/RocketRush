@@ -8,9 +8,16 @@ var GameLayer = cc.LayerColor.extend({
 
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
+
+        this.obstacle = new Obstacle();
+        this.obstacle.randomPosition();
         
         this.addChild( this.player, 1 );
+        this.addChild( this.obstacle, 1 );
+
         this.player.scheduleUpdate();
+        this.obstacle.scheduleUpdate();
+        this.scheduleUpdate();
 
         return true;
     },
@@ -21,6 +28,12 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyUp: function(e){
         this.player.stopMove(e);
+    },
+
+    update: function() {
+        if(this.obstacle.closeTo(this.player)){
+            this.obstacle.randomPosition();
+        }
     }
 });
 

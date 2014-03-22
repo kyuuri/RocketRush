@@ -13,7 +13,8 @@
         //SingleEngineFile:'',
         appFiles:[
             'src/GameLayer.js',
-            'src/Player.js'     //add your own files in order here
+            'src/Player.js',
+            'src/Obstacle.js'     //add your own files in order here
         ]
     };
 
