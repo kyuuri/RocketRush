@@ -3,6 +3,7 @@ var Obstacle = cc.Sprite.extend({
         this._super();
         this.initWithFile( 'images/obstacle.png' );
         this.setScale(Obstacle.SCALE);
+        this.gravity = -1 + Math.floor(Math.random() * Obstacle.GRAVITY);
 
         this.started = false;
     },
@@ -15,14 +16,15 @@ var Obstacle = cc.Sprite.extend({
                 this.randomPosition();
             }
             else{
-                this.setPosition(new cc.Point(pos.x, pos.y + Obstacle.GRAVITY));
+                this.setPosition(new cc.Point(pos.x, pos.y + this.gravity));
             }
         }
     },
 
     randomPosition: function() {
         var posx = 1 + Math.floor(Math.random()*screenWidth);
-        this.setPosition(new cc.Point(posx, screenHeight + 100));
+        var posy = 1 + Math.floor(Math.random()*screenHeight);
+        this.setPosition(new cc.Point(posx, screenHeight + posy + 20));
     },
 
     closeTo: function( obj ) {
@@ -43,5 +45,5 @@ var Obstacle = cc.Sprite.extend({
 
 });
 
-Obstacle.GRAVITY = -15;
+Obstacle.GRAVITY = -20;
 Obstacle.SCALE = 2.0;

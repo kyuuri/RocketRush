@@ -13,19 +13,27 @@ var GameLayer = cc.LayerColor.extend({
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
 
-        this.obstacle = new Obstacle();
-        this.obstacle.randomPosition();
+        this.obstacles = [
+        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
+        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
+        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
+        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
+        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle()
+        ];
+
+        for(var i = 0 ; i < this.obstacles.length ; i++){
+            this.obstacles[i].randomPosition();
+            this.addChild(this.obstacles[i] , 1);
+            this.obstacles[i].scheduleUpdate();
+        }
 
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
         this.scoreLabel.setPosition( new cc.Point( 550, 750 ) );
         this.score = 0;
         
         this.addChild( this.player, 1 );
-        this.addChild( this.obstacle, 1 );
         this.addChild( this.scoreLabel, 2 );
-
         this.player.scheduleUpdate();
-        this.obstacle.scheduleUpdate();
         this.scheduleUpdate();
 
         return true;
@@ -35,7 +43,9 @@ var GameLayer = cc.LayerColor.extend({
         if(this.state == GameLayer.STATES.FRONT){
             this.state = GameLayer.STATES.STARTED;
             this.player.start();
-            this.obstacle.start();
+            for(var i = 0 ; i < this.obstacles.length ; i++){
+                this.obstacles[i].start();
+            }
         }
         if(this.state == GameLayer.STATES.STARTED){
             this.player.startMove(e);
@@ -48,13 +58,26 @@ var GameLayer = cc.LayerColor.extend({
         }
     },
 
+    isCollide: function(){
+
+        for(var i = 0 ; i < this.obstacles.length ; i++){
+            if(this.obstacles[i].closeTo(this.player)){
+                return true;
+            }
+        }
+        return false;
+    },
+
     update: function() {
         if(this.state == GameLayer.STATES.STARTED){
-            if(this.obstacle.closeTo(this.player)){
+            if(this.isCollide()){
                 this.state = GameLayer.STATES.DEAD;
                 this.player.stop();
                 this.explodePlayer();
-                this.obstacle.stop();
+
+                for(var i = 0 ; i < this.obstacles.length ; i++){
+                    this.obstacles[i].stop();
+                }
             }
             this.scoreLabel.setString( ++this.score );
         }
