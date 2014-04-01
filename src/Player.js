@@ -3,6 +3,9 @@ var Player = cc.Sprite.extend({
         this._super();
         this.initWithFile( 'images/ship.png' );
 
+        this.isSlow = false;
+        this.slowRate = 0;
+
         //direction
         this.isUp = false;
         this.isDown = false;
@@ -13,8 +16,20 @@ var Player = cc.Sprite.extend({
     },
 
     update: function(dt){
+        if(!this.isSlow){
+            this.updatePlayer();
+        }
+        else{
+            if(this.slowRate % 2 == 0){
+                this.updatePlayer();
+            }
+        }
+        this.slowRate++
+    },
+
+    updatePlayer: function(){
         if(this.started){
-        	var pos = this.getPosition();
+            var pos = this.getPosition();
             this.moveShip(pos);
         }
     },
@@ -55,6 +70,10 @@ var Player = cc.Sprite.extend({
 
     stop: function(){
         this.started = false;
+    },
+
+    activateSlow: function(isSlow){
+        this.isSlow = isSlow;
     }
 
 });

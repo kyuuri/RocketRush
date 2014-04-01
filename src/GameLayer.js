@@ -3,6 +3,9 @@ var GameLayer = cc.LayerColor.extend({
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
 
+        this.slow = false;
+        this.slowRate = 0;
+
 
         this.setKeyboardEnabled( true );
 
@@ -30,9 +33,14 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
         this.scoreLabel.setPosition( new cc.Point( 550, 750 ) );
         this.score = 0;
+
+        this.skillSlowLabel = cc.LabelTTF.create( '1000', 'Arial', 30 );
+        this.skillSlowLabel.setPosition( new cc.Point( 550, 700 ) );
+        this.skillSlow = 1000;
         
         this.addChild( this.player, 1 );
         this.addChild( this.scoreLabel, 2 );
+        this.addChild( this.skillSlowLabel, 2 );
         this.player.scheduleUpdate();
         this.scheduleUpdate();
 
@@ -50,11 +58,24 @@ var GameLayer = cc.LayerColor.extend({
         if(this.state == GameLayer.STATES.STARTED){
             this.player.startMove(e);
         }
+        if(e == 90 || e == 65){ // A or Z
+            if(this.skillSlow > 100){
+                this.activateSlow(true);
+            }
+            else{
+                this.activateSlow(false);
+            }
+        }
+        console.log(e);
     },
 
     onKeyUp: function(e){
         if(this.state == GameLayer.STATES.STARTED){
             this.player.stopMove(e);
+        }
+
+        if(e == 90 || e == 65){ // A or Z
+            this.activateSlow(false);
         }
     },
 
@@ -68,24 +89,55 @@ var GameLayer = cc.LayerColor.extend({
         return false;
     },
 
+    activateSlow: function(isSlow){
+        this.slow = isSlow;
+        this.player.activateSlow(this.slow);
+        for(var i = 0 ; i < this.obstacles.length ; i++){
+            this.obstacles[i].activateSlow(this.slow);
+        }
+    },
+
     update: function() {
-        if(this.state == GameLayer.STATES.STARTED){
-            if(this.isCollide()){
-                this.state = GameLayer.STATES.DEAD;
-                this.player.stop();
-                this.explodePlayer();
 
-                for(var i = 0 ; i < this.obstacles.length ; i++){
-                    this.obstacles[i].stop();
-                }
+        if(!this.slow){
+            this.updateGameLayer();
+            if(this. skillSlow < 1000)
+                this.skillSlow++;
+        }
+        else{
+            if(this.slowRate % 3 == 0){
+                this.updateGameLayer();
             }
-            this.scoreLabel.setString( ++this.score );
+            this.skillSlow -= 3;
         }
 
-        if(this.state == GameLayer.STATES.DEAD){
-            this.removeChild(this.player);
-            this.explodePlayer();
+        if(this.state == GameLayer.STATES.STARTED){
+            if(this.skillSlow < 10){
+                this.activateSlow(false);
+            }
+            this.slowRate++;
+            this.skillSlowLabel.setString( this.skillSlow );
         }
+    },
+
+    updateGameLayer: function(){
+        if(this.state == GameLayer.STATES.STARTED){
+                if(this.isCollide()){
+                    this.state = GameLayer.STATES.DEAD;
+                    this.player.stop();
+                    this.explodePlayer();
+
+                    for(var i = 0 ; i < this.obstacles.length ; i++){
+                        this.obstacles[i].stop();
+                    }
+                }
+                this.scoreLabel.setString( ++this.score );
+            }
+
+            if(this.state == GameLayer.STATES.DEAD){
+                this.removeChild(this.player);
+                this.explodePlayer();
+            }
     },
 
     initPlayerExplosion: function(){

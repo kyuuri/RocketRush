@@ -5,10 +5,25 @@ var Obstacle = cc.Sprite.extend({
         this.setScale(Obstacle.SCALE);
         this.gravity = -1 + Math.floor(Math.random() * Obstacle.GRAVITY);
 
+        this.isSlow = false;
+        this.slowRate = 0;
+
         this.started = false;
     },
 
     update: function(dt) {
+        if(!this.isSlow){
+            this.updateObstacle();
+        }
+        else{
+            if(this.slowRate % 3 == 0){
+                this.updateObstacle();
+            }
+        }
+        this.slowRate++;
+    },
+
+    updateObstacle: function(){
         if(this.started){
             var pos = this.getPosition();
 
@@ -19,6 +34,10 @@ var Obstacle = cc.Sprite.extend({
                 this.setPosition(new cc.Point(pos.x, pos.y + this.gravity));
             }
         }
+    },
+
+    activateSlow: function(isSlow){
+        this.isSlow = isSlow;
     },
 
     randomPosition: function() {
