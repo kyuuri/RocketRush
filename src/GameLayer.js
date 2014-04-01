@@ -137,6 +137,11 @@ var GameLayer = cc.LayerColor.extend({
         if(this.explosionCount == 0){
             this.ex1.setPosition(pos);
             this.addChild(this.ex1,3);
+
+            //temp
+            this.endLabel = cc.LabelTTF.create( 'กากงะ T^T', 'Arial', 100 );
+            this.endLabel.setPosition( new cc.Point( 300, 400 ) );
+            this.addChild(this.endLabel,3);
         }
         else if(this.explosionCount == 3){
             this.shiftExplodeFrame(this.ex1, this.ex2, pos);
@@ -164,6 +169,7 @@ var GameLayer = cc.LayerColor.extend({
         }
         else if(this.explosionCount == 27){
             this.removeChild(this.ex9);
+            this.state = GameLayer.END;
         }
 
         this.explosionCount++;
@@ -191,6 +197,7 @@ var StartScene = cc.Scene.extend({
 GameLayer.STATES = {
     FRONT: 1,
     STARTED: 2,
-    DEAD: 3
+    DEAD: 3,
+    END: 4
 };
 
