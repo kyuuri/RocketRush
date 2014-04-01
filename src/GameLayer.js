@@ -37,10 +37,15 @@ var GameLayer = cc.LayerColor.extend({
         this.skillSlowLabel = cc.LabelTTF.create( '1000', 'Arial', 30 );
         this.skillSlowLabel.setPosition( new cc.Point( 550, 700 ) );
         this.skillSlow = 1000;
+
+        //temp label
+        this.skillLabel = cc.LabelTTF.create( 'press Z to activate slow', 'Arial', 20 );
+        this.skillLabel.setPosition( new cc.Point( 470, 785 ) );
         
         this.addChild( this.player, 1 );
         this.addChild( this.scoreLabel, 2 );
         this.addChild( this.skillSlowLabel, 2 );
+        this.addChild( this.skillLabel, 2 );
         this.player.scheduleUpdate();
         this.scheduleUpdate();
 
@@ -108,7 +113,7 @@ var GameLayer = cc.LayerColor.extend({
             if(this.slowRate % 3 == 0){
                 this.updateGameLayer();
             }
-            this.skillSlow -= 3;
+            this.skillSlow -= 2;
         }
 
         if(this.state == GameLayer.STATES.STARTED){
