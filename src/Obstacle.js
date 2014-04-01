@@ -2,6 +2,7 @@ var Obstacle = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'images/obstacle.png' );
+        this.setScale(Obstacle.SCALE);
 
         this.started = false;
     },
@@ -28,8 +29,8 @@ var Obstacle = cc.Sprite.extend({
         var myPos = this.getPosition();
         var oPos = obj.getPosition();
 
-        return ( ( Math.abs( myPos.x - oPos.x ) <= 40 ) &&
-         ( Math.abs( myPos.y - oPos.y ) <= 40 ) );
+        return ( ( Math.abs( myPos.x - oPos.x ) <= 20 * Obstacle.SCALE ) &&
+         ( Math.abs( myPos.y - oPos.y ) <= 20 * Obstacle.SCALE ) );
     },
 
     start: function(){
@@ -43,3 +44,4 @@ var Obstacle = cc.Sprite.extend({
 });
 
 Obstacle.GRAVITY = -15;
+Obstacle.SCALE = 2.0;

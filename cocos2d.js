@@ -15,7 +15,8 @@
             'src/resource.js',
             'src/GameLayer.js',
             'src/Player.js',
-            'src/Obstacle.js'     //add your own files in order here
+            'src/Obstacle.js',
+            'src/Explosion.js'     //add your own files in order here
         ]
     };
 

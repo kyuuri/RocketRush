@@ -7,6 +7,8 @@ var GameLayer = cc.LayerColor.extend({
         this.setKeyboardEnabled( true );
 
         this.state = GameLayer.STATES.FRONT;
+        this.explosionCount = 0;
+        this.initPlayerExplosion();
 
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
@@ -49,13 +51,109 @@ var GameLayer = cc.LayerColor.extend({
     update: function() {
         if(this.state == GameLayer.STATES.STARTED){
             if(this.obstacle.closeTo(this.player)){
-                this.state.GameLayer.STATES.DEAD;
+                this.state = GameLayer.STATES.DEAD;
                 this.player.stop();
+                this.explodePlayer();
                 this.obstacle.stop();
             }
             this.scoreLabel.setString( ++this.score );
         }
+
+        if(this.state == GameLayer.STATES.DEAD){
+            this.removeChild(this.player);
+            this.explodePlayer();
+        }
+    },
+
+    initPlayerExplosion: function(){
+        var exScale = 2.0;
+
+        this.ex1 = new Explosion();
+        this.ex1.initWithFile( 'images/ex1.png' );
+
+        this.ex2 = new Explosion();
+        this.ex2.initWithFile( 'images/ex2.png' );
+
+        this.ex3 = new Explosion();
+        this.ex3.initWithFile( 'images/ex3.png' );
+
+        this.ex4 = new Explosion();
+        this.ex4.initWithFile( 'images/ex4.png' );
+
+        this.ex5 = new Explosion();
+        this.ex5.initWithFile( 'images/ex5.png' );
+
+        this.ex6 = new Explosion();
+        this.ex6.initWithFile( 'images/ex6.png' );
+
+        this.ex7 = new Explosion();
+        this.ex7.initWithFile( 'images/ex7.png' );
+
+        this.ex8 = new Explosion();
+        this.ex8.initWithFile( 'images/ex8.png' );
+
+        this.ex9 = new Explosion();
+        this.ex9.initWithFile( 'images/ex9.png' );
+
+        this.ex1.setScale(exScale);
+        this.ex2.setScale(exScale);
+        this.ex3.setScale(exScale);
+        this.ex4.setScale(exScale);
+        this.ex5.setScale(exScale);
+        this.ex6.setScale(exScale);
+        this.ex7.setScale(exScale);
+        this.ex8.setScale(exScale);
+        this.ex9.setScale(exScale);
+
+
+    },
+
+    explodePlayer: function(){
+        var pos = this.player.getPosition();
+
+        if(this.explosionCount == 0){
+            this.ex1.setPosition(pos);
+            this.addChild(this.ex1,3);
+        }
+        else if(this.explosionCount == 3){
+            this.shiftExplodeFrame(this.ex1, this.ex2, pos);
+        }
+        else if(this.explosionCount == 6){
+            this.shiftExplodeFrame(this.ex2, this.ex3, pos);
+        }
+        else if(this.explosionCount == 9){
+            this.shiftExplodeFrame(this.ex3, this.ex4, pos);
+        }
+        else if(this.explosionCount == 12){
+            this.shiftExplodeFrame(this.ex4, this.ex5, pos);
+        }
+        else if(this.explosionCount == 15){
+            this.shiftExplodeFrame(this.ex5, this.ex6, pos);
+        }
+        else if(this.explosionCount == 18){
+            this.shiftExplodeFrame(this.ex6, this.ex7, pos);
+        }
+        else if(this.explosionCount == 21){
+            this.shiftExplodeFrame(this.ex7, this.ex8, pos);
+        }
+        else if(this.explosionCount == 24){
+            this.shiftExplodeFrame(this.ex8, this.ex9, pos);
+        }
+        else if(this.explosionCount == 27){
+            this.removeChild(this.ex9);
+        }
+
+        this.explosionCount++;
+   
+    },
+
+    shiftExplodeFrame: function(fromEx, toEx, pos){
+        toEx.setPosition(pos);
+        this.addChild(toEx,3);
+        this.removeChild(fromEx);
     }
+
+
 });
 
 var StartScene = cc.Scene.extend({
