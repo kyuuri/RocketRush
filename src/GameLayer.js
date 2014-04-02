@@ -21,6 +21,7 @@ var GameLayer = cc.LayerColor.extend({
         new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
         new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
         new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
+        new Obstacle(),new Obstacle()
         ];
 
         for(var i = 0 ; i < this.obstacles.length ; i++){
