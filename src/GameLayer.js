@@ -16,12 +16,10 @@ var GameLayer = cc.LayerColor.extend({
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
 
-        this.obstacles = [
-        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
-        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
-        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
-        new Obstacle(),new Obstacle(),new Obstacle(),new Obstacle(),
-        ];
+        this.obstacles = [];
+        for(var i = 0 ; i < 17 ; i++){
+            this.obstacles.push(new Obstacle());
+        }
 
         for(var i = 0 ; i < this.obstacles.length ; i++){
             this.obstacles[i].randomPosition();

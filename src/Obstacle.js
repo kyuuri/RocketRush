@@ -41,8 +41,8 @@ var Obstacle = cc.Sprite.extend({
     },
 
     randomPosition: function() {
-        var posx = 1 + Math.floor(Math.random()*screenWidth);
-        var posy = 1 + Math.floor(Math.random()*screenHeight);
+        var posx = 1 + Math.floor(Math.random() * screenWidth);
+        var posy = 1 + Math.floor(Math.random() * screenHeight);
         this.setPosition(new cc.Point(posx, screenHeight + posy + 20));
     },
 
@@ -50,8 +50,8 @@ var Obstacle = cc.Sprite.extend({
         var myPos = this.getPosition();
         var oPos = obj.getPosition();
 
-        return ( ( Math.abs( myPos.x - oPos.x ) <= 20 * Obstacle.SCALE ) &&
-         ( Math.abs( myPos.y - oPos.y ) <= 20 * Obstacle.SCALE ) );
+        return ((Math.abs(myPos.x - oPos.x) <= 20 * Obstacle.SCALE) &&
+         (Math.abs(myPos.y - oPos.y) <= 20 * Obstacle.SCALE));
     },
 
     start: function(){
