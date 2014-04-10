@@ -38,7 +38,7 @@ var Bomb = cc.Sprite.extend({
     		this.angle = 0; // reset angle value
     	}
 
-    	if(this.scale > 7.0){
+    	if(this.scale > 8.0){
     		this.removeFromParent();
     		this.resetValue();
     	}

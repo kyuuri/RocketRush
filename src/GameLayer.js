@@ -10,8 +10,7 @@ var GameLayer = cc.LayerColor.extend({
         this.setKeyboardEnabled( true );
 
         this.state = GameLayer.STATES.FRONT;
-        this.explosionCount = 0;
-        this.initPlayerExplosion();
+
 
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
@@ -155,7 +154,6 @@ var GameLayer = cc.LayerColor.extend({
                 if(this.isCollide()){
                     this.state = GameLayer.STATES.DEAD;
                     this.player.stop();
-                    this.explodePlayer();
 
                     for(var i = 0 ; i < this.obstacles.length ; i++){
                         this.obstacles[i].stop();
@@ -170,51 +168,25 @@ var GameLayer = cc.LayerColor.extend({
             }
     },
 
-    initPlayerExplosion: function(){
-        var exScale = 2.0;
-
-        this.ex = new Array();
-        this.count = 0;
-
-        for(var i = 1 ; i < 10 ; i++){
-            var src = 'images/ex' + i + '.png';
-            this.ex[i-1] = new Explosion();
-            this.ex[i-1].initWithFile( src );
-            this.ex[i-1].setScale(exScale);
-        }
-
-    },
-
     explodePlayer: function(){
         var pos = this.player.getPosition();
 
+        this.ex = new Explosion();
 
-        if(this.explosionCount == 0){
-            this.ex[0].setPosition(pos);
-            this.addChild(this.ex[0],3);
+        this.ex.setPosition(pos.x-110,pos.y-110);
 
-            //temp
-            this.endLabel = cc.LabelTTF.create( 'กากงะ T^T', 'Arial', 100 );
-            this.endLabel.setPosition( new cc.Point( 300, 400 ) );
-            this.addChild(this.endLabel,3);
-        }
-        else if(this.explosionCount == 27){
-            this.removeChild(this.ex[8]);
-            this.state = GameLayer.END;
-        }
-        else if(this.explosionCount % 3 == 0){
-            this.shiftExplodeFrame(this.ex[this.count], this.ex[this.count+1], pos);
-            this.count++;
-        }
+        // 110 is for calibrating the explosion's position
 
-        this.explosionCount++;
+        this.exAction = this.ex.animateExplosion();
+        this.ex.runAction(this.exAction);
+        this.addChild( this.ex, 2 );
+
+        this.endLabel = cc.LabelTTF.create( 'กากงะ T^T', 'Arial', 100 );
+        this.endLabel.setPosition( new cc.Point( 300, 400 ) );
+        this.addChild(this.endLabel,3);
+
+        this.state = GameLayer.END;
    
-    },
-
-    shiftExplodeFrame: function(fromEx, toEx, pos){
-        toEx.setPosition(pos);
-        this.addChild(toEx,3);
-        this.removeChild(fromEx);
     }
 
 
