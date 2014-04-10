@@ -2,6 +2,7 @@ var Player = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'images/ship.png' );
+        this.setAnchorPoint(0.5,0.7)
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -54,9 +55,9 @@ var Player = cc.Sprite.extend({
     },
 
     moveShip: function(pos){
-        if(this.isUp && pos.y <= 770)
+        if(this.isUp && pos.y <= screenHeight-30)
             this.setPosition( new cc.Point( pos.x, pos.y + Player.MOVESPEED ) );
-        if(this.isRight && pos.x <= 570)
+        if(this.isRight && pos.x <= screenWidth-30)
             this.setPosition( new cc.Point( pos.x + Player.MOVESPEED, pos.y ) );
         if(this.isLeft && pos.x >= 30)
             this.setPosition( new cc.Point( pos.x - Player.MOVESPEED, pos.y ) );

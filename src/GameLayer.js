@@ -26,17 +26,17 @@ var GameLayer = cc.LayerColor.extend({
             this.obstacles[i].scheduleUpdate();
         }
 
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-        this.scoreLabel.setPosition( new cc.Point( 550, 750 ) );
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 35 );
+        this.scoreLabel.setPosition( new cc.Point( 520, 710 ) );
         this.score = 0;
 
-        this.skillSlowLabel = cc.LabelTTF.create( '1000', 'Arial', 30 );
-        this.skillSlowLabel.setPosition( new cc.Point( 550, 700 ) );
+        this.skillSlowLabel = cc.LabelTTF.create( '1000', 'Arial', 25 );
+        this.skillSlowLabel.setPosition( new cc.Point( 520, 670 ) );
         this.skillSlow = 1000;
 
         //temp label
-        this.skillLabel = cc.LabelTTF.create( 'press Z to activate slow', 'Arial', 20 );
-        this.skillLabel.setPosition( new cc.Point( 470, 785 ) );
+        this.skillLabel = cc.LabelTTF.create( 'press Z to activate slow', 'Arial', 18 );
+        this.skillLabel.setPosition( new cc.Point( 430, 745 ) );
 
         //test bomb
         this.bomb = new Bomb();
