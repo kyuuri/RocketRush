@@ -10,7 +10,8 @@ var g_resources = [
     {src: 'images/ex6.png' },
     {src: 'images/ex7.png' },
     {src: 'images/ex8.png' },
-    {src: 'images/ex9.png' }
+    {src: 'images/ex9.png' },
+    {src: 'images/fireRing.png'}
  
     //plist
  

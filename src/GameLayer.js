@@ -38,11 +38,15 @@ var GameLayer = cc.LayerColor.extend({
         //temp label
         this.skillLabel = cc.LabelTTF.create( 'press Z to activate slow', 'Arial', 20 );
         this.skillLabel.setPosition( new cc.Point( 470, 785 ) );
+
+        //test bomb
+        this.bomb = new Bomb();
         
-        this.addChild( this.player, 1 );
-        this.addChild( this.scoreLabel, 2 );
-        this.addChild( this.skillSlowLabel, 2 );
-        this.addChild( this.skillLabel, 2 );
+        this.addChild( this.player, 2 );
+
+        this.addChild( this.scoreLabel, 3 );
+        this.addChild( this.skillSlowLabel, 3 );
+        this.addChild( this.skillLabel, 3 );
         this.player.scheduleUpdate();
         this.scheduleUpdate();
 
@@ -60,7 +64,7 @@ var GameLayer = cc.LayerColor.extend({
         if(this.state == GameLayer.STATES.STARTED){
             this.player.startMove(e);
         }
-        if(e == 90 || e == 65){ // A or Z
+        if(e == 65 || e == 90){ // A or Z
             if(this.skillSlow > 100){
                 this.activateSlow(true);
             }
@@ -68,7 +72,10 @@ var GameLayer = cc.LayerColor.extend({
                 this.activateSlow(false);
             }
         }
-        console.log(e);
+        if(e == 88){ // X
+            this.activateBomb();
+        }
+        //console.log(e);
     },
 
     onKeyUp: function(e){
@@ -97,6 +104,14 @@ var GameLayer = cc.LayerColor.extend({
         for(var i = 0 ; i < this.obstacles.length ; i++){
             this.obstacles[i].activateSlow(this.slow);
         }
+    },
+
+    activateBomb: function(){
+
+        this.bomb.setPosition(this.player.getPosition());
+        this.addChild( this.bomb, 1 );
+        this.bomb.scheduleUpdate();
+        
     },
 
     update: function() {
