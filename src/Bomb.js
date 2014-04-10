@@ -6,6 +6,7 @@ var Bomb = cc.Sprite.extend({
         this.angle = 0;
         this.scale = 0.2;
         this.scaleAcc = 0.02;
+        this.active = false;
     },
 
     update: function(){
@@ -34,6 +35,19 @@ var Bomb = cc.Sprite.extend({
     	this.angel = 0;
     	this.scale = 0.2;
     	this.scaleAcc = 0.02;
+    	this.active = false;
+    },
+
+    closeTo: function( obj ) {
+        var myPos = this.getPosition();
+        var oPos = obj.getPosition();
+
+        return ((Math.abs(myPos.x - oPos.x) <= 500 * this.scale) &&
+         (Math.abs(myPos.y - oPos.y) <= 500 * this.scale));
+    },
+
+    activeBomb: function(){
+    	this.active = true;
     }
 
 });

@@ -98,6 +98,15 @@ var GameLayer = cc.LayerColor.extend({
         return false;
     },
 
+    bombObstacle: function(){
+
+        for(var i = 0 ; i < this.obstacles.length ; i++){
+            if(this.bomb.closeTo(this.obstacles[i]) && this.bomb.active){
+                this.obstacles[i].randomPosition();
+            }
+        }
+    },
+
     activateSlow: function(isSlow){
         this.slow = isSlow;
         this.player.activateSlow(this.slow);
@@ -110,8 +119,9 @@ var GameLayer = cc.LayerColor.extend({
 
         this.bomb.setPosition(this.player.getPosition());
         this.addChild( this.bomb, 1 );
+        this.bomb.activeBomb();
         this.bomb.scheduleUpdate();
-        
+
     },
 
     update: function() {
@@ -135,6 +145,7 @@ var GameLayer = cc.LayerColor.extend({
             this.slowRate++;
             this.skillSlowLabel.setString( this.skillSlow );
         }
+        this.bombObstacle();
     },
 
     updateGameLayer: function(){
