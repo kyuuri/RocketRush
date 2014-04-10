@@ -63,17 +63,18 @@ var GameLayer = cc.LayerColor.extend({
         }
         if(this.state == GameLayer.STATES.STARTED){
             this.player.startMove(e);
-        }
-        if(e == 65 || e == 90){ // A or Z
-            if(this.skillSlow > 100){
-                this.activateSlow(true);
+
+            if(e == 65 || e == 90){ // A or Z
+                if(this.skillSlow > 100){
+                    this.activateSlow(true);
+                }
+                else{
+                    this.activateSlow(false);
+                }
             }
-            else{
-                this.activateSlow(false);
+            if(e == 88){ // X
+                this.activateBomb();
             }
-        }
-        if(e == 88){ // X
-            this.activateBomb();
         }
         //console.log(e);
     },
