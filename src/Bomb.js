@@ -7,9 +7,27 @@ var Bomb = cc.Sprite.extend({
         this.scale = 0.2;
         this.scaleAcc = 0.02;
         this.active = false;
+
+        this.isSlow = false;
+        this.slowRate = 0;
     },
 
     update: function(){
+    	
+    	if(!this.isSlow){
+            this.updateBomb();
+        }
+        else{
+            if(this.slowRate % 3 == 0){
+                this.updateBomb();
+            }
+        }
+        this.slowRate++;
+
+    },
+
+    updateBomb: function(){
+
     	this.scaleAcc += 0.02;
     	this.scale += this.scaleAcc;
     	this.setScale(this.scale);
@@ -24,7 +42,6 @@ var Bomb = cc.Sprite.extend({
     		this.removeFromParent();
     		this.resetValue();
     	}
-
     },
 
     spin: function(angle){
@@ -48,6 +65,10 @@ var Bomb = cc.Sprite.extend({
 
     activeBomb: function(){
     	this.active = true;
+    },
+
+    activateSlow: function(isSlow){
+        this.isSlow = isSlow;
     }
 
 });

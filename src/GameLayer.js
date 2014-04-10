@@ -111,6 +111,7 @@ var GameLayer = cc.LayerColor.extend({
     activateSlow: function(isSlow){
         this.slow = isSlow;
         this.player.activateSlow(this.slow);
+        this.bomb.activateSlow(this.slow);
         for(var i = 0 ; i < this.obstacles.length ; i++){
             this.obstacles[i].activateSlow(this.slow);
         }
