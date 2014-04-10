@@ -24,7 +24,7 @@ var Player = cc.Sprite.extend({
                 this.updatePlayer();
             }
         }
-        this.slowRate++
+        this.slowRate++;
     },
 
     updatePlayer: function(){
@@ -55,13 +55,13 @@ var Player = cc.Sprite.extend({
 
     moveShip: function(pos){
         if(this.isUp && pos.y <= 770)
-            this.setPosition( new cc.Point( pos.x, pos.y+7.5 ) );
+            this.setPosition( new cc.Point( pos.x, pos.y + Player.MOVESPEED ) );
         if(this.isRight && pos.x <= 570)
-            this.setPosition( new cc.Point( pos.x+7.5, pos.y ) );
+            this.setPosition( new cc.Point( pos.x + Player.MOVESPEED, pos.y ) );
         if(this.isLeft && pos.x >= 30)
-            this.setPosition( new cc.Point( pos.x-7.5, pos.y ) );
+            this.setPosition( new cc.Point( pos.x - Player.MOVESPEED, pos.y ) );
         if(this.isDown && pos.y >= 30)
-            this.setPosition( new cc.Point( pos.x, pos.y-7.5 ) );
+            this.setPosition( new cc.Point( pos.x, pos.y - Player.MOVESPEED ) );
     },
 
     start: function(){
@@ -78,7 +78,7 @@ var Player = cc.Sprite.extend({
 
 });
 
-Player.MOVESPEED = 4;
+Player.MOVESPEED = 8;
 
 Player.ARROWKEY = {
     UP: 38,

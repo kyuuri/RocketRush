@@ -18,7 +18,7 @@ var Bomb = cc.Sprite.extend({
             this.updateBomb();
         }
         else{
-            if(this.slowRate % 3 == 0){
+            if(this.slowRate % 2 == 0){
                 this.updateBomb();
             }
         }
@@ -28,17 +28,17 @@ var Bomb = cc.Sprite.extend({
 
     updateBomb: function(){
 
-    	this.scaleAcc += 0.02;
+    	this.scaleAcc += 0.04;
     	this.scale += this.scaleAcc;
     	this.setScale(this.scale);
-    	this.angle += 20;
+    	this.angle += 30;
     	this.spin(this.angle);
 
     	if(this.angle == 360){
     		this.angle = 0; // reset angle value
     	}
 
-    	if(this.scale > 8.0){
+    	if(this.scale > 7.0){
     		this.removeFromParent();
     		this.resetValue();
     	}

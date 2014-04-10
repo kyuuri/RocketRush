@@ -3,7 +3,7 @@ var Obstacle = cc.Sprite.extend({
         this._super();
         this.initWithFile( 'images/obstacle.png' );
         this.setScale(Obstacle.SCALE);
-        this.gravity = -1 + Math.floor(Math.random() * Obstacle.GRAVITY);
+        this.gravity = -3 + Math.floor(Math.random() * Obstacle.GRAVITY);
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -64,5 +64,5 @@ var Obstacle = cc.Sprite.extend({
 
 });
 
-Obstacle.GRAVITY = -15;
+Obstacle.GRAVITY = -11;
 Obstacle.SCALE = 2.0;

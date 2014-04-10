@@ -17,9 +17,12 @@ var Explosion = cc.Sprite.extend({
         animation.addSpriteFrameWithFile( 'images/ex8.png' );
         animation.addSpriteFrameWithFile( 'images/ex9.png' );
       
+        animation.setRestoreOriginalFrame(true);
         animation.setDelayPerUnit( 0.05 );
         return cc.Animate.create( animation );
-    }
+    },
+
+
 
 
 });

@@ -16,7 +16,7 @@ var GameLayer = cc.LayerColor.extend({
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
 
         this.obstacles = [];
-        for(var i = 0 ; i < 17 ; i++){
+        for(var i = 0 ; i < 18 ; i++){
             this.obstacles.push(new Obstacle());
         }
 
@@ -102,6 +102,7 @@ var GameLayer = cc.LayerColor.extend({
 
         for(var i = 0 ; i < this.obstacles.length ; i++){
             if(this.bomb.closeTo(this.obstacles[i]) && this.bomb.active){
+                this.explodeObstacle(this.obstacles[i]);
                 this.obstacles[i].randomPosition();
             }
         }
@@ -186,6 +187,24 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.endLabel,3);
 
         this.state = GameLayer.END;
+   
+    },
+
+    explodeObstacle: function(ob){
+        var pos = ob.getPosition();
+
+        this.ex = new Explosion();
+        this.ex.setScale(2.0);
+
+        this.ex.setPosition(pos.x-110,pos.y-110);
+
+        // 110 is for calibrating the explosion's position
+
+        this.exAction = this.ex.animateExplosion();
+        this.ex.runAction(this.exAction);
+        this.addChild( this.ex, 2 );
+
+        this.r
    
     }
 
