@@ -192,6 +192,9 @@ var GameLayer = cc.LayerColor.extend({
 
     explodeObstacle: function(ob){
         var pos = ob.getPosition();
+        //ob.stop();
+
+
 
         this.ex = new Explosion();
         this.ex.setScale(2.0);
@@ -203,8 +206,6 @@ var GameLayer = cc.LayerColor.extend({
         this.exAction = this.ex.animateExplosion();
         this.ex.runAction(this.exAction);
         this.addChild( this.ex, 2 );
-
-        this.r
    
     }
 
@@ -216,6 +217,7 @@ var StartScene = cc.Scene.extend({
         this._super();
         var layer = new GameLayer();
         layer.init();
+        //layer.setColor(255,255,255);
         this.addChild( layer );
     }
 });

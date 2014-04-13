@@ -1,7 +1,7 @@
 var Bomb = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'images/fireRing.png' );
+        this.initWithFile( 'images/powerRing.png' );
 
         this.angle = 0;
         this.scale = 0.2;
@@ -58,6 +58,10 @@ var Bomb = cc.Sprite.extend({
     closeTo: function( obj ) {
         var myPos = this.getPosition();
         var oPos = obj.getPosition();
+
+        if(oPos.y >= screenHeight){
+            return false;
+        }
 
         return ((Math.abs(myPos.x - oPos.x) <= 500 * this.scale) &&
          (Math.abs(myPos.y - oPos.y) <= 500 * this.scale));
