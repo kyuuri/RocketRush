@@ -3,10 +3,10 @@ var Bomb = cc.Sprite.extend({
         this._super();
         this.initWithFile( 'images/powerRing.png' );
 
-        this.angle = 0;
-        this.scale = 0.2;
-        this.scaleAcc = 0.02;
-        this.active = false;
+        this.angle = Bomb.INITIAL_ANGEL;
+        this.scale = Bomb.INITIAL_SCALE;
+        this.scaleAcc = Bomb.INITIAL_SCALEACC;
+        this.active = Bomb.INITIAL_ACTIVE;
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -38,7 +38,7 @@ var Bomb = cc.Sprite.extend({
     		this.angle = 0; // reset angle value
     	}
 
-    	if(this.scale > 7.0){
+    	if(this.scale > 5.0){
     		this.removeFromParent();
     		this.resetValue();
     	}
@@ -49,10 +49,10 @@ var Bomb = cc.Sprite.extend({
     },
 
     resetValue: function(){
-    	this.angel = 0;
-    	this.scale = 0.2;
-    	this.scaleAcc = 0.02;
-    	this.active = false;
+        this.angle = Bomb.INITIAL_ANGEL;
+        this.scale = Bomb.INITIAL_SCALE;
+        this.scaleAcc = Bomb.INITIAL_SCALEACC;
+        this.active = Bomb.INITIAL_ACTIVE;
     },
 
     closeTo: function( obj ) {
@@ -76,3 +76,9 @@ var Bomb = cc.Sprite.extend({
     }
 
 });
+
+Bomb.INITIAL_ANGEL = 0;
+Bomb.INITIAL_SCALE = 0.2;
+Bomb.INITIAL_SCALEACC = 0.02;
+Bomb.INITIAL_ACTIVE = false;
+

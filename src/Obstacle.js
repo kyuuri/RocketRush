@@ -64,5 +64,5 @@ var Obstacle = cc.Sprite.extend({
 
 });
 
-Obstacle.GRAVITY = -10;
+Obstacle.GRAVITY = -14;
 Obstacle.SCALE = 1.9;

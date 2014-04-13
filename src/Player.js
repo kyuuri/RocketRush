@@ -79,7 +79,7 @@ var Player = cc.Sprite.extend({
 
 });
 
-Player.MOVESPEED = 8;
+Player.MOVESPEED = 7.5;
 
 Player.ARROWKEY = {
     UP: 38,
