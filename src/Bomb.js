@@ -7,6 +7,7 @@ var Bomb = cc.Sprite.extend({
         this.scale = Bomb.INITIAL_SCALE;
         this.scaleAcc = Bomb.INITIAL_SCALEACC;
         this.active = Bomb.INITIAL_ACTIVE;
+        this.acc = 0.01;
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -28,7 +29,7 @@ var Bomb = cc.Sprite.extend({
 
     updateBomb: function(){
 
-    	this.scaleAcc += 0.04;
+    	this.scaleAcc += this.acc;
     	this.scale += this.scaleAcc;
     	this.setScale(this.scale);
     	this.angle += 30;

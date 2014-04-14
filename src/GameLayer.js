@@ -6,11 +6,9 @@ var GameLayer = cc.LayerColor.extend({
         this.slow = false;
         this.slowRate = 0;
 
-
         this.setKeyboardEnabled( true );
 
         this.state = GameLayer.STATES.FRONT;
-
 
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
@@ -49,6 +47,17 @@ var GameLayer = cc.LayerColor.extend({
         this.player.scheduleUpdate();
         this.scheduleUpdate();
 
+        this.clouds = [];
+        for(var i = 0 ; i < 4 ; i++){
+            this.clouds.push(new Cloud());
+        }
+
+        for(var i = 0 ; i < this.clouds.length ; i++){
+            this.clouds[i].randomPosition();
+            this.addChild(this.clouds[i] , 0);
+            this.clouds[i].scheduleUpdate();
+        }
+
         return true;
     },
 
@@ -58,6 +67,9 @@ var GameLayer = cc.LayerColor.extend({
             this.player.start();
             for(var i = 0 ; i < this.obstacles.length ; i++){
                 this.obstacles[i].start();
+            }
+            for(var i = 0 ; i < this.clouds.length ; i++){
+                this.clouds[i].start();
             }
         }
         if(this.state == GameLayer.STATES.STARTED){
@@ -184,6 +196,7 @@ var GameLayer = cc.LayerColor.extend({
 
         this.endLabel = cc.LabelTTF.create( 'กากงะ T^T', 'Arial', 100 );
         this.endLabel.setPosition( new cc.Point( 300, 400 ) );
+        //this.endLabel.setColor(255,255,255);
         this.addChild(this.endLabel,3);
 
         this.state = GameLayer.END;
@@ -217,7 +230,8 @@ var StartScene = cc.Scene.extend({
         this._super();
         var layer = new GameLayer();
         layer.init();
-        //layer.setColor(255,255,255);
+        //layer.setColor(100,149,237);
+        layer.setColor(new cc.Color3B(100,149,237));
         this.addChild( layer );
     }
 });

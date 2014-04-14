@@ -18,6 +18,7 @@
             'src/Obstacle.js',
             'src/Explosion.js',
             'src/Bomb.js',
+            'src/Cloud.js'
                  //add your own files in order here
         ]
     };
