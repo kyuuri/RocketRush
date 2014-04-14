@@ -2,7 +2,8 @@ var Cloud = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'images/cloud.png' );
-        this.setScale(0.5 + (Math.floor(Math.random() * 3))/10);
+
+        this.setScale( Cloud.INITIAL_SCALE + (Math.floor(Math.random() * Cloud.SCALE_RANGE))/10 );
         this.gravity = -2 + Math.floor(Math.random() * Cloud.GRAVITY);
 
         this.isSlow = false;
@@ -44,6 +45,13 @@ var Cloud = cc.Sprite.extend({
         var posx = 1 + Math.floor(Math.random() * screenWidth);
         var posy = 1 + Math.floor(Math.random() * screenHeight);
         this.setPosition(new cc.Point(posx, screenHeight + posy + 700));
+
+        this.resetValue();
+    },
+
+    resetValue: function(){
+    	this.setScale( Cloud.INITIAL_SCALE + (Math.floor(Math.random() * Cloud.SCALE_RANGE))/10 );
+        this.gravity = -2 + Math.floor(Math.random() * Cloud.GRAVITY);
     },
 
     start: function(){
@@ -57,4 +65,5 @@ var Cloud = cc.Sprite.extend({
 });
 
 Cloud.GRAVITY = -10;
-Cloud.SCALE = 0.8;
+Cloud.INITIAL_SCALE = 0.5;
+Cloud.SCALE_RANGE = 3;

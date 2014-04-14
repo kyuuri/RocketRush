@@ -44,6 +44,12 @@ var Obstacle = cc.Sprite.extend({
         var posx = 1 + Math.floor(Math.random() * screenWidth);
         var posy = 1 + Math.floor(Math.random() * screenHeight);
         this.setPosition(new cc.Point(posx, screenHeight + posy + 20));
+        
+        this.resetValue();
+    },
+
+    resetValue: function(){
+        this.gravity = -2 + Math.floor(Math.random() * Obstacle.GRAVITY);
     },
 
     closeTo: function( obj ) {

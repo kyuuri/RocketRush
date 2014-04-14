@@ -47,8 +47,9 @@ var GameLayer = cc.LayerColor.extend({
         this.player.scheduleUpdate();
         this.scheduleUpdate();
 
+        //cloud
         this.clouds = [];
-        for(var i = 0 ; i < 4 ; i++){
+        for(var i = 0 ; i < 3 ; i++){
             this.clouds.push(new Cloud());
         }
 
@@ -127,6 +128,9 @@ var GameLayer = cc.LayerColor.extend({
         for(var i = 0 ; i < this.obstacles.length ; i++){
             this.obstacles[i].activateSlow(this.slow);
         }
+        for(var i = 0 ; i < this.clouds.length ; i++){
+            this.clouds[i].activateSlow(this.slow);
+        }
     },
 
     activateBomb: function(){
@@ -146,7 +150,7 @@ var GameLayer = cc.LayerColor.extend({
                 this.skillSlow++;
         }
         else{
-            if(this.slowRate % 3 == 0){
+            if(this.slowRate % 2 == 0){
                 this.updateGameLayer();
             }
             this.skillSlow -= 2;
@@ -170,6 +174,9 @@ var GameLayer = cc.LayerColor.extend({
 
                     for(var i = 0 ; i < this.obstacles.length ; i++){
                         this.obstacles[i].stop();
+                    }
+                    for(var i = 0 ; i < this.clouds.length ; i++){
+                        this.clouds[i].stop();
                     }
                 }
                 this.scoreLabel.setString( ++this.score );
