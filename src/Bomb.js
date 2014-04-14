@@ -1,7 +1,7 @@
 var Bomb = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'images/powerRing.png' );
+        this.initWithFile( 'images/fireRing.png' );
 
         this.angle = Bomb.INITIAL_ANGEL;
         this.scale = Bomb.INITIAL_SCALE;
