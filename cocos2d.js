@@ -18,7 +18,8 @@
             'src/Obstacle.js',
             'src/Explosion.js',
             'src/Bomb.js',
-            'src/Cloud.js'
+            'src/Cloud.js',
+            'src/SkillBar.js'
                  //add your own files in order here
         ]
     };

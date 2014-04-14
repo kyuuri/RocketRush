@@ -28,8 +28,10 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreLabel.setPosition( new cc.Point( 520, 710 ) );
         this.score = 0;
 
-        this.skillSlowLabel = cc.LabelTTF.create( '1000', 'Arial', 25 );
-        this.skillSlowLabel.setPosition( new cc.Point( 520, 670 ) );
+        this.skillSlowLabel = cc.LabelTTF.create( 'Slow Gauge', 'Arial', 18 );
+        this.skillSlowLabel.setPosition( new cc.Point( 415, 685 ) );
+        this.addChild( this.skillSlowLabel, 3 );
+
         this.skillSlow = 1000;
 
         //temp label
@@ -42,7 +44,6 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.player, 2 );
 
         this.addChild( this.scoreLabel, 3 );
-        this.addChild( this.skillSlowLabel, 3 );
         this.addChild( this.skillLabel, 3 );
         this.player.scheduleUpdate();
         this.scheduleUpdate();
@@ -58,6 +59,11 @@ var GameLayer = cc.LayerColor.extend({
             this.addChild(this.clouds[i] , 0);
             this.clouds[i].scheduleUpdate();
         }
+
+        //skill1 bar
+        this.skillBar = new SkillBar();
+        this.skillBar.setPosition( new cc.Point( 455, 660 ) );
+        this.addChild( this.skillBar , 3);
 
         return true;
     },
@@ -161,7 +167,8 @@ var GameLayer = cc.LayerColor.extend({
                 this.activateSlow(false);
             }
             this.slowRate++;
-            this.skillSlowLabel.setString( this.skillSlow );
+            this.skillBar.setBar( this.skillSlow / 1000 );
+            //this.skillSlowLabel.setString( this.skillSlow );
         }
         this.bombObstacle();
     },
