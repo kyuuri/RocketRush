@@ -1,5 +1,7 @@
 var g_resources = [
     //image
+    {src: 'images/ship1.png' },
+    {src: 'images/ship2.png' },
     {src: 'images/ship.png' },
     {src: 'images/obstacle.png' },
     {src: 'images/ex1.png' },

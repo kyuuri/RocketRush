@@ -1,8 +1,10 @@
 var Player = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'images/ship.png' );
-        this.setAnchorPoint(0.5,0.7)
+        //this.initWithFile( 'images/ship.png' );
+        this.setAnchorPoint(0.5,0.7);
+        this.runAction(this.createPlayerAnimation());
+        this.setScale(0.5);
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -75,7 +77,18 @@ var Player = cc.Sprite.extend({
 
     activateSlow: function(isSlow){
         this.isSlow = isSlow;
-    }
+    },
+
+    createPlayerAnimation: function(){
+
+        var animation = new cc.Animation.create();
+        animation.addSpriteFrameWithFile( 'images/ship1.png' );
+        animation.addSpriteFrameWithFile( 'images/ship2.png' );
+      
+        //animation.setRestoreOriginalFrame(true);
+        animation.setDelayPerUnit( 0.15 );
+        return cc.RepeatForever.create(cc.Animate.create( animation ));
+    },
 
 });
 
