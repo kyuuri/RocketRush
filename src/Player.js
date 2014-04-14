@@ -2,12 +2,13 @@ var Player = cc.Sprite.extend({
     ctor: function() {
         this._super();
         //this.initWithFile( 'images/ship.png' );
-        this.setAnchorPoint(0.5,0.7);
-        this.runAction(this.createPlayerAnimation());
-        this.setScale(0.5);
+        this.setAnchorPoint( 0.5, 0.7 );
+        this.runAction( this.createPlayerAnimation() );
+        this.setScale( 0.5 );
 
         this.isSlow = false;
         this.slowRate = 0;
+        this.opacity = Player.MAX_OPACITY;
 
         //direction
         this.isUp = false;
@@ -20,9 +21,18 @@ var Player = cc.Sprite.extend({
 
     update: function(dt){
         if(!this.isSlow){
+            if(this.opacity < Player.MAX_OPACITY){
+                this.opacity += 10;
+                this.setOpacity( this.opacity );
+            }
             this.updatePlayer();
         }
         else{
+            if( this.opacity > Player.SLOW_OPACITY ){
+                this.opacity -= 10;
+                this.setOpacity( this.opacity );
+            }
+
             if(this.slowRate % 2 == 0){
                 this.updatePlayer();
             }
@@ -93,6 +103,9 @@ var Player = cc.Sprite.extend({
 });
 
 Player.MOVESPEED = 7.5;
+Player.MAX_OPACITY = 255;
+Player.MIN_OPACITY = 0;
+Player.SLOW_OPACITY = 105;
 
 Player.ARROWKEY = {
     UP: 38,
