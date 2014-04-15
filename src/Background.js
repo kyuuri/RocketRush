@@ -35,20 +35,20 @@ var Background = cc.Sprite.extend({
     },
 
     start: function(){
-        this.bgLayer1.started = true;
-       	this.bgLayer2.started = true;
+        this.bgLayer1.start();
+       	this.bgLayer2.start();
 
         for(var i = 0 ; i < LittleStar.NUM ; i++){
-        	this.littleStars[i].started = true;
+        	this.littleStars[i].start();
         }
     },
 
     stop: function(){
-        this.bgLayer1.started = false;
-       	this.bgLayer2.started = false;
+        this.bgLayer1.stop();
+       	this.bgLayer2.stop();
 
         for(var i = 0 ; i < LittleStar.NUM ; i++){
-        	this.littleStars[i].started = false;
+        	this.littleStars[i].stop();
         }
     },
 });
