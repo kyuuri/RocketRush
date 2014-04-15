@@ -56,16 +56,20 @@ var GameLayer = cc.LayerColor.extend({
         this.scheduleUpdate();
 
         //cloud
-        this.clouds = [];
-        for(var i = 0 ; i < 3 ; i++){
-            this.clouds.push(new Cloud());
-        }
+        // this.clouds = [];
+        // for(var i = 0 ; i < 3 ; i++){
+        //     this.clouds.push(new Cloud());
+        // }
 
-        for(var i = 0 ; i < this.clouds.length ; i++){
-            this.clouds[i].randomPosition();
-            this.addChild(this.clouds[i] , 0);
-            this.clouds[i].scheduleUpdate();
-        }
+        // for(var i = 0 ; i < this.clouds.length ; i++){
+        //     this.clouds[i].randomPosition();
+        //     this.addChild(this.clouds[i] , 0);
+        //     this.clouds[i].scheduleUpdate();
+        // }
+
+        //bg
+        this.bg = new Background();
+        this.addChild( this.bg, 0 );
 
         //skill1 bar
         this.skillBar = new SkillBar();
@@ -82,9 +86,12 @@ var GameLayer = cc.LayerColor.extend({
             for(var i = 0 ; i < this.obstacles.length ; i++){
                 this.obstacles[i].start();
             }
-            for(var i = 0 ; i < this.clouds.length ; i++){
-                this.clouds[i].start();
+            for(var i = 0 ; i < this.bg.littleStars.length ; i++){
+                this.bg.littleStars[i].start();
             }
+            // for(var i = 0 ; i < this.clouds.length ; i++){
+            //     this.clouds[i].start();
+            // }
         }
         if(this.state == GameLayer.STATES.STARTED){
             this.player.startMove(e);
@@ -141,9 +148,9 @@ var GameLayer = cc.LayerColor.extend({
         for(var i = 0 ; i < this.obstacles.length ; i++){
             this.obstacles[i].activateSlow(this.slow);
         }
-        for(var i = 0 ; i < this.clouds.length ; i++){
-            this.clouds[i].activateSlow(this.slow);
-        }
+        // for(var i = 0 ; i < this.clouds.length ; i++){
+        //     this.clouds[i].activateSlow(this.slow);
+        // }
     },
 
     activateBomb: function(){
@@ -189,9 +196,9 @@ var GameLayer = cc.LayerColor.extend({
                     for(var i = 0 ; i < this.obstacles.length ; i++){
                         this.obstacles[i].stop();
                     }
-                    for(var i = 0 ; i < this.clouds.length ; i++){
-                        this.clouds[i].stop();
-                    }
+                    // for(var i = 0 ; i < this.clouds.length ; i++){
+                    //     this.clouds[i].stop();
+                    // }
                 }
                 this.scoreLabel.setString( ++this.score );
             }
