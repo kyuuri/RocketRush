@@ -16,7 +16,6 @@ var g_resources = [
     {src: 'images/ex9.png' },
     {src: 'images/fireRing.png'},
     {src: 'images/powerRing.png'},
-    {src: 'images/cloud.png'},
     {src: 'images/spaceBg.png'},
     {src: 'images/littleStar.png'},
  
