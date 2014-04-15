@@ -83,6 +83,7 @@ var GameLayer = cc.LayerColor.extend({
         if(this.state == GameLayer.STATES.FRONT){
             this.state = GameLayer.STATES.STARTED;
             this.player.start();
+            this.bg.start();
             for(var i = 0 ; i < this.obstacles.length ; i++){
                 this.obstacles[i].start();
             }

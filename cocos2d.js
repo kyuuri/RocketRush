@@ -21,8 +21,9 @@
             'src/Bomb.js',
             'src/Cloud.js',
             'src/SkillBar.js',
+            'src/BGLayer.js',
             'src/background.js',
-            'src/littleStar.js'
+            'src/littleStar.js',
                  //add your own files in order here
         ]
     };
