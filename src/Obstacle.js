@@ -66,6 +66,10 @@ var Obstacle = cc.Sprite.extend({
 
     stop: function(){
         this.started = false;
+    },
+
+    getType: function(){
+        return 0;
     }
 
 });

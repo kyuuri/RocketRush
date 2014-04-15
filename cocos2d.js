@@ -16,6 +16,7 @@
             'src/GameLayer.js',
             'src/Player.js',
             'src/Obstacle.js',
+            'src/AdvancedObstacle1.js',
             'src/Explosion.js',
             'src/Bomb.js',
             'src/Cloud.js',
