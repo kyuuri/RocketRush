@@ -6,7 +6,7 @@ var Background = cc.Sprite.extend({
         this.bgLayer2 = new BGLayer();
 
         this.bgLayer1.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
-        this.bgLayer2.setPosition( new cc.Point( screenWidth / 2, screenHeight + screenHeight / 2 ) );
+        this.bgLayer2.setPosition( new cc.Point( screenWidth / 2, screenHeight + screenHeight / 2 - 50) );
 
         this.bgLayer1.scheduleUpdate();
         this.bgLayer2.scheduleUpdate();
