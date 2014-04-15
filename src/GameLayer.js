@@ -15,7 +15,14 @@ var GameLayer = cc.LayerColor.extend({
 
         this.obstacles = [];
         for(var i = 0 ; i < 18 ; i++){
-            this.obstacles.push(new AdvancedObstacle1());
+            //var type = Math.floor(Math.random() * 2); // now there are only 2 types
+
+            if( i <= 8){
+                this.obstacles.push(new AdvancedObstacle1());
+            }
+            else{
+                this.obstacles.push(new Obstacle());
+            }
         }
 
         for(var i = 0 ; i < this.obstacles.length ; i++){
