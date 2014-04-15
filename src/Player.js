@@ -22,14 +22,14 @@ var Player = cc.Sprite.extend({
     update: function(dt){
         if(!this.isSlow){
             if(this.opacity < Player.MAX_OPACITY){
-                this.opacity += 10;
+                this.opacity += 15;
                 this.setOpacity( this.opacity );
             }
             this.updatePlayer();
         }
         else{
             if( this.opacity > Player.SLOW_OPACITY ){
-                this.opacity -= 10;
+                this.opacity -= 15;
                 this.setOpacity( this.opacity );
             }
 
@@ -105,7 +105,7 @@ var Player = cc.Sprite.extend({
 Player.MOVESPEED = 7.5;
 Player.MAX_OPACITY = 255;
 Player.MIN_OPACITY = 0;
-Player.SLOW_OPACITY = 105;
+Player.SLOW_OPACITY = 90;
 
 Player.ARROWKEY = {
     UP: 38,
