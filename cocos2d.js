@@ -19,7 +19,6 @@
             'src/AdvancedObstacle1.js',
             'src/Explosion.js',
             'src/Bomb.js',
-            'src/Cloud.js',
             'src/SkillBar.js',
             'src/BGLayer.js',
             'src/background.js',
