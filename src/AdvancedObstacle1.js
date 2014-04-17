@@ -19,8 +19,8 @@ var AdvancedObstacle1 = Obstacle.extend({
         var myPos = this.getPosition();
         var oPos = obj.getPosition();
 
-        var isHit = ((Math.abs(myPos.x - oPos.x) <= 20 * AdvancedObstacle1.SCALE) &&
-        		   (Math.abs(myPos.y - oPos.y) <= 20 *AdvancedObstacle1.SCALE));
+        var isHit = ((Math.abs(myPos.x - oPos.x) <= this.sizeX * AdvancedObstacle1.SCALE) &&
+        		   (Math.abs(myPos.y - oPos.y) <= this.sizeY *AdvancedObstacle1.SCALE));
 
         if(obj.isSlow){
         	return false;

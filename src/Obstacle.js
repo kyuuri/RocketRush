@@ -3,10 +3,14 @@ var Obstacle = cc.Sprite.extend({
         this._super();
         this.initWithFile( 'images/obstacle.png' );
         this.setScale(Obstacle.SCALE);
-        this.gravity = -2 + Math.floor(Math.random() * Obstacle.GRAVITY);
+        this.vx = 0;
+        this.vy = -2 + Math.floor(Math.random() * Obstacle.GRAVITY);
 
         this.isSlow = false;
         this.slowRate = 0;
+
+        this.sizeX = Obstacle.INITIAL_SIZE_X;
+        this.sizeY = Obstacle.INITIAL_SIZE_Y;
 
         this.started = false;
     },
@@ -31,7 +35,7 @@ var Obstacle = cc.Sprite.extend({
                 this.randomPosition();
             }
             else{
-                this.setPosition(new cc.Point(pos.x, pos.y + this.gravity));
+                this.setPosition( new cc.Point( pos.x + this.vx, pos.y + this.vy ) );
             }
         }
     },
@@ -43,21 +47,33 @@ var Obstacle = cc.Sprite.extend({
     randomPosition: function() {
         var posx = 1 + Math.floor(Math.random() * screenWidth);
         var posy = 1 + Math.floor(Math.random() * screenHeight);
-        this.setPosition(new cc.Point(posx, screenHeight + posy + 20));
+        this.setPosition(new cc.Point(posx, screenHeight + posy + this.sizeY));
         
         this.resetValue();
     },
 
     resetValue: function(){
-        this.gravity = -2 + Math.floor(Math.random() * Obstacle.GRAVITY);
+        this.vy = -2 + Math.floor(Math.random() * Obstacle.GRAVITY);
+    },
+
+    destroySelf: function(){
+        this.removeFromParent();
+    },
+
+    isOutOfScreen: function(){
+        var pos = this.getPosition();
+        var outX = ( pos.x < -100 ) || ( pos.x > screenWidth + 100 );
+        var outY = ( pos.y < -100 ) || ( pos.y > screenHeight + 100 );
+
+        return outX && outY;
     },
 
     closeTo: function( obj ) {
         var myPos = this.getPosition();
         var oPos = obj.getPosition();
 
-        return ((Math.abs(myPos.x - oPos.x) <= 20 * Obstacle.SCALE) &&
-         (Math.abs(myPos.y - oPos.y) <= 20 * Obstacle.SCALE));
+        return ((Math.abs(myPos.x - oPos.x) <= this.sizeX * Obstacle.SCALE) &&
+         (Math.abs(myPos.y - oPos.y) <= this.sizeY * Obstacle.SCALE));
     },
 
     start: function(){
@@ -76,3 +92,5 @@ var Obstacle = cc.Sprite.extend({
 
 Obstacle.GRAVITY = -14;
 Obstacle.SCALE = 1.9;
+Obstacle.INITIAL_SIZE_X = 20;
+Obstacle.INITIAL_SIZE_Y = 20;
