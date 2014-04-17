@@ -24,6 +24,8 @@
             'src/BGLayer.js',
             'src/background.js',
             'src/littleStar.js',
+            'src/ObstacleCreator.js',
+            'src/ObstacleTest.js'
                  //add your own files in order here
         ]
     };

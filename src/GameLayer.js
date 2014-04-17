@@ -64,6 +64,11 @@ var GameLayer = cc.LayerColor.extend({
         this.skillBar.setPosition( new cc.Point( 455, 660 ) );
         this.addChild( this.skillBar , 3);
 
+        //test ObCreator
+        this.obCre = new ObstacleCreator( this );
+        this.addChild(this.obCre, 10);
+        this.obCre.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 + 150) );
+
         return true;
     },
 
@@ -177,21 +182,25 @@ var GameLayer = cc.LayerColor.extend({
         if(this.state == GameLayer.STATES.STARTED){
                 if(this.isCollide()){
                     this.state = GameLayer.STATES.DEAD;
-
-                    this.player.stop();
-                    this.bg.stop();
-
-                    for(var i = 0 ; i < this.obstacles.length ; i++){
-                        this.obstacles[i].stop();
-                    }
                 }
                 this.scoreLabel.setString( ++this.score );
             }
 
-            if(this.state == GameLayer.STATES.DEAD){
-                this.removeChild(this.player);
-                this.explodePlayer();
+        if(this.state == GameLayer.STATES.DEAD){
+
+            
+            this.player.stop();
+            this.bg.stop();
+
+            for(var i = 0 ; i < this.obstacles.length ; i++){
+                this.obstacles[i].stop();
             }
+
+            this.removeChild(this.player);
+            this.explodePlayer();
+
+        }
+
     },
 
     explodePlayer: function(){
@@ -212,7 +221,7 @@ var GameLayer = cc.LayerColor.extend({
         //this.endLabel.setColor(255,255,255);
         this.addChild(this.endLabel,3);
 
-        this.state = GameLayer.END;
+        this.state = GameLayer.STATES.END;
    
     },
 
