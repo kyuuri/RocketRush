@@ -14,7 +14,7 @@ var ObstacleCreator = cc.Sprite.extend({
     },
 
     update: function(){
-        console.log(this.gameLayer.state);
+        //console.log(this.gameLayer.state);
         if( this.gameLayer.state == GameLayer.STATES.DEAD || this.gameLayer.state == GameLayer.STATES.END ){
             this.unschedule(this.shoot);
         }
