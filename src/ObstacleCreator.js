@@ -4,8 +4,11 @@ var ObstacleCreator = cc.Sprite.extend({
         this.initWithFile( 'images/advancedObstacle.png' );
         this.obstacles = [];
 
-        this.arcNum = 0; // defalut arc
-        this.arcVy = 1;
+        this.arcNum = 0;
+        this.arcVy = 0;
+
+        this.crossNum = 0;
+        this.crossV = 0;
 
         for(var i = 1 ; i <= 20 ; i++){
             this.obstacles.push( new ObstacleTest() );
@@ -15,6 +18,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.scheduleUpdate();
 
         //this.shootMultiArc( 10, 1, 5, 2, -8);
+        this.shootCross( 8, 1, 5, 2, 8);
     },
 
     update: function(){
@@ -64,7 +68,32 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
-    }
+    },
+
+    shootCross: function( crossNum, interval, repeat, delay, v){
+
+        this.crossNum = crossNum;
+        this.crossV = v
+
+        this.schedule( this.cross, interval, repeat, delay); 
+    },
+
+    cross: function(){
+
+        var angle = 360 / this.crossNum ;
+        var angleRunner = 0;
+
+        for(var i = 0 ; i < this.crossNum ; i++){
+            this.obstacles[i].vx = this.crossV * Math.cos( angleRunner * Math.PI / 180 );
+            this.obstacles[i].vy = this.crossV * Math.sin( angleRunner * Math.PI / 180 );
+            angleRunner += angle;
+            this.obstacles[i].setPosition( this.getPosition() );
+
+            this.gameLayer.addChild( this.obstacles[i], 10 );
+            this.obstacles[i].start();
+            this.obstacles[i].scheduleUpdate();
+        }
+    },
 
 
 
