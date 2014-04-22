@@ -4,17 +4,21 @@ var ObstacleCreator = cc.Sprite.extend({
         this.initWithFile( 'images/advancedObstacle.png' );
         this.obstacles = [];
 
-        for(var i = 1 ; i <= 3 ; i++){
+        this.arcNum = 0; // defalut arc
+        this.arcVy = 1;
+
+        for(var i = 1 ; i <= 20 ; i++){
             this.obstacles.push( new ObstacleTest() );
         }
 
         this.gameLayer = game;
         this.scheduleUpdate();
-        this.schedule(this.shoot,3,3,3);
+
+        //this.shootMultiArc( 10, 1, 5, 2, -8);
     },
 
     update: function(){
-        //console.log(this.gameLayer.state);
+
         if( this.gameLayer.state == GameLayer.STATES.DEAD || this.gameLayer.state == GameLayer.STATES.END ){
             this.unschedule(this.shoot);
         }
@@ -41,20 +45,26 @@ var ObstacleCreator = cc.Sprite.extend({
         return false;
     },
 
+    shootMultiArc: function( arcNum, interval, repeat, delay, vy ){
 
-    //test shoot
-    shoot: function(){
+        this.arcNum = arcNum;
+        this.arcVy = vy;
 
-        for(var i = 0 ; i < 3 ; i++){
-            this.obstacles[i].vx = -2 + (i+1);
-            this.obstacles[i].vy = -8;
+        this.schedule( this.multiArc, interval, repeat, delay); 
+    },
+
+    multiArc: function(){
+
+        for(var i = 0 ; i < this.arcNum ; i++){
+            this.obstacles[i].vx = -this.arcNum + (2*(i+1)-1);
+            this.obstacles[i].vy = this.arcVy;
             this.obstacles[i].setPosition( this.getPosition() );
 
-            this.gameLayer.addChild(this.obstacles[i], 10);
+            this.gameLayer.addChild( this.obstacles[i], 10 );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
-    },
+    }
 
 
 
