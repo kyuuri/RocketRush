@@ -12,6 +12,9 @@ var ObstacleCreator = cc.Sprite.extend({
 
         this.lockOnV = 0;
 
+        this.spiralNum = 0;
+        this.spiralV = 0;
+
         for(var i = 1 ; i <= 20 ; i++){
             this.obstacles.push( new ObstacleTest() );
         }
@@ -20,8 +23,9 @@ var ObstacleCreator = cc.Sprite.extend({
         this.scheduleUpdate();
 
         //this.shootMultiArc( 10, 1, 5, 2, -8);
-        //this.shootCross( 8, 1, 5, 2, 8);
-        this.shootLockOn(1,5,2,8)
+        //this.shootCross( 7, 1, 5, 2, 8);
+        //this.shootLockOn(1,5,2,8)
+        this.shootSpiral( 3, 1, 0, 2, 10);
     },
 
     update: function(){
@@ -84,7 +88,7 @@ var ObstacleCreator = cc.Sprite.extend({
     cross: function(){
 
         var angle = 360 / this.crossNum ;
-        var angleRunner = 0;
+        var angleRunner = -90;
 
         for(var i = 0 ; i < this.crossNum ; i++){
             this.obstacles[i].vx = this.crossV * Math.cos( angleRunner * Math.PI / 180 );
@@ -141,6 +145,33 @@ var ObstacleCreator = cc.Sprite.extend({
         this.gameLayer.addChild( this.obstacles[0], 10 );
         this.obstacles[0].start();
         this.obstacles[0].scheduleUpdate();
+    },
+
+    shootSpiral: function( spiralNum, interval, repeat, delay, v){
+
+        this.spiralNum = spiralNum;
+        this.spiralV = v;
+
+        this.schedule( this.spiral, interval, repeat, delay); 
+    },
+
+    spiral: function(){
+
+        var angle = 360 / this.spiralNum ;
+        var angleRunner = -90;
+
+        for(var i = 0 ; i < this.spiralNum ; i++){
+            var vx = this.spiralV * Math.cos( angleRunner * Math.PI / 180 );
+            var vy = this.spiralV * Math.sin( angleRunner * Math.PI / 180 );
+            this.obstacles[i].setVxVy( vx, vy );
+            angleRunner += angle;
+            this.obstacles[i].setPosition( this.getPosition() );
+
+            this.gameLayer.addChild( this.obstacles[i], 10 );
+            this.obstacles[i].spiralOn( true );
+            this.obstacles[i].start();
+            this.obstacles[i].scheduleUpdate();
+        }
     },
 
 
