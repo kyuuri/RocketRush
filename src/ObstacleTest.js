@@ -10,12 +10,17 @@ var ObstacleTest = cc.Sprite.extend({
         this.angle = 0;
         this.theta = 0;
         this.a = 2;
-        this.b = 0.1;
-        this.r = 5;
+        this.b = 0.4;
+        this.r = 1;
+        this.angleRate = ObstacleTest.ANGLE_RATE;
         // r = ae^(b*theta)
         // r*r = x^2 + y^2
         // x = r cos(theta)
         // y = r sin(theta)
+
+        this.spiralNum = 0;
+        this.angleLaunch = 0;
+        this.i = 0;
 
         this.rate = 1;
 
@@ -56,9 +61,17 @@ var ObstacleTest = cc.Sprite.extend({
                 if( this.spiralIsOn ){
                     this.theta = this.angle * Math.PI / 180;
                     this.r = this.a * Math.pow( Math.E, this.b * this.theta );
-                    this.vx = this.r * Math.cos( this.theta );
-                    this.vy = this.r * Math.sin( this.theta );
-                    this.angle += 15;
+
+                    //initial axis
+                    var x = this.r * Math.cos( this.theta );
+                    var y = this.r * Math.sin( this.theta );
+
+                    //rotate axis
+                    var rotateAngle = this.angleLaunch * ( this.i + 1 );
+                    this.vx = x * Math.cos( rotateAngle ) - y * Math.sin( rotateAngle );
+                    this.vy = y * Math.cos( rotateAngle ) + x * Math.sin( rotateAngle );
+
+                    this.angle += ObstacleTest.ANGLE_RATE;
                 }
                 this.setPosition( new cc.Point( pos.x + this.vx, pos.y + this.vy ) );
             }
@@ -115,8 +128,13 @@ var ObstacleTest = cc.Sprite.extend({
         return 0;
     },
 
-    spiralOn: function( isOn ){
+    spiralOn: function( isOn, i, spiralNum ){
         this.spiralIsOn = isOn;
+        this.spiralNum = spiralNum;
+        this.angleLaunch = 2 * Math.PI / spiralNum ;
+        this.i = i;
     },
 
 });
+
+ObstacleTest.ANGLE_RATE = 3;

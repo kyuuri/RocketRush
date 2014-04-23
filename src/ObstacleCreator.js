@@ -22,16 +22,20 @@ var ObstacleCreator = cc.Sprite.extend({
         this.gameLayer = game;
         this.scheduleUpdate();
 
-        //this.shootMultiArc( 10, 1, 5, 2, -8);
+        //this.shootMultiArc( 3, 1, 5, 2, -8);
         //this.shootCross( 7, 1, 5, 2, 8);
         //this.shootLockOn(1,5,2,8)
-        this.shootSpiral( 3, 1, 0, 2, 10);
+        //this.shootSpiral( 8, 1, 0, 2, 10);
     },
 
     update: function(){
 
         if( this.gameLayer.state == GameLayer.STATES.DEAD || this.gameLayer.state == GameLayer.STATES.END ){
-            this.unschedule(this.shoot);
+            this.unschedule( this.multiArc );
+            this.unschedule( this.cross );
+            this.unschedule( this.lockOn );
+            this.unschedule( this.spiral );
+            //this.unschedule(this.shoot);
         }
         else if( this.isCollide() ){
             this.gameLayer.state = GameLayer.STATES.DEAD;
@@ -168,7 +172,7 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].setPosition( this.getPosition() );
 
             this.gameLayer.addChild( this.obstacles[i], 10 );
-            this.obstacles[i].spiralOn( true );
+            this.obstacles[i].spiralOn( true, i, this.spiralNum );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
