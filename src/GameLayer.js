@@ -65,9 +65,9 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.skillBar , 3);
 
         //test ObCreator
-        // this.obCre = new ObstacleCreator( this );
-        // this.addChild(this.obCre, 10);
-        // this.obCre.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 + 200) );
+        this.obCre = new ObstacleCreator( this );
+        this.addChild(this.obCre, 10);
+        this.obCre.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 + 200) );
 
         return true;
     },

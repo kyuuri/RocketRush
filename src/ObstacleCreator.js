@@ -5,7 +5,8 @@ var ObstacleCreator = cc.Sprite.extend({
         this.obstacles = [];
 
         this.arcNum = 0;
-        this.arcVy = 0;
+        this.arcV = 0;
+        this.arcAngle = 0;
 
         this.crossNum = 0;
         this.crossV = 0;
@@ -22,7 +23,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.gameLayer = game;
         this.scheduleUpdate();
 
-        //this.shootMultiArc( 3, 1, 5, 2, -8);
+        this.shootMultiArc( 5, 1, 5, 2, 8, -90);
         //this.shootCross( 7, 1, 5, 2, 8);
         //this.shootLockOn(1,5,2,8)
         //this.shootSpiral( 8, 1, 0, 2, 10);
@@ -60,10 +61,11 @@ var ObstacleCreator = cc.Sprite.extend({
         return false;
     },
 
-    shootMultiArc: function( arcNum, interval, repeat, delay, vy ){
+    shootMultiArc: function( arcNum, interval, repeat, delay, v, arcAngle ){
 
         this.arcNum = arcNum;
-        this.arcVy = vy;
+        this.arcV = v;
+        this.arcAngle = arcAngle * Math.PI / 180 - Math.PI / 2;
 
         this.schedule( this.multiArc, interval, repeat, delay); 
     },
@@ -71,8 +73,12 @@ var ObstacleCreator = cc.Sprite.extend({
     multiArc: function(){
 
         for(var i = 0 ; i < this.arcNum ; i++){
-            this.obstacles[i].vx = -this.arcNum + (2*(i+1)-1);
-            this.obstacles[i].vy = this.arcVy;
+            var x = ( -this.arcNum + ( 2 * ( i + 1 ) - 1 ) );
+            var y = this.arcV;
+
+            this.obstacles[i].vx = x * Math.cos( this.arcAngle ) - y * Math.sin( this.arcAngle );
+            this.obstacles[i].vy = y * Math.cos( this.arcAngle ) + x * Math.sin( this.arcAngle );
+
             this.obstacles[i].setPosition( this.getPosition() );
 
             this.gameLayer.addChild( this.obstacles[i], 10 );
