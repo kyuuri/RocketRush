@@ -4,7 +4,7 @@ var Obstacle = cc.Sprite.extend({
         this.initWithFile( 'images/obstacle.png' );
         this.setScale(Obstacle.SCALE);
         this.vx = 0;
-        this.vy = -2 + Math.floor(Math.random() * Obstacle.GRAVITY);
+        this.vy = -2 + Math.floor( Math.random() * Obstacle.GRAVITY );
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -15,12 +15,12 @@ var Obstacle = cc.Sprite.extend({
         this.started = false;
     },
 
-    update: function(dt) {
-        if(!this.isSlow){
+    update: function( dt ) {
+        if( !this.isSlow ){
             this.updateObstacle();
         }
         else{
-            if(this.slowRate % 3 == 0){
+            if( this.slowRate % 3 == 0 ){
                 this.updateObstacle();
             }
         }
@@ -28,7 +28,7 @@ var Obstacle = cc.Sprite.extend({
     },
 
     updateObstacle: function(){
-        if(this.started){
+        if( this.started ){
             var pos = this.getPosition();
 
             if(pos.y < -50){
@@ -40,20 +40,20 @@ var Obstacle = cc.Sprite.extend({
         }
     },
 
-    activateSlow: function(isSlow){
+    activateSlow: function( isSlow ){
         this.isSlow = isSlow;
     },
 
     randomPosition: function() {
-        var posx = 1 + Math.floor(Math.random() * screenWidth);
-        var posy = 1 + Math.floor(Math.random() * screenHeight);
-        this.setPosition(new cc.Point(posx, screenHeight + posy + this.sizeY));
+        var posx = 1 + Math.floor( Math.random() * screenWidth );
+        var posy = 1 + Math.floor( Math.random() * screenHeight );
+        this.setPosition( new cc.Point( posx, screenHeight + posy + this.sizeY ) );
         
         this.resetValue();
     },
 
     resetValue: function(){
-        this.vy = -2 + Math.floor(Math.random() * Obstacle.GRAVITY);
+        this.vy = -2 + Math.floor( Math.random() * Obstacle.GRAVITY );
     },
 
     destroySelf: function(){
@@ -72,8 +72,8 @@ var Obstacle = cc.Sprite.extend({
         var myPos = this.getPosition();
         var oPos = obj.getPosition();
 
-        return ((Math.abs(myPos.x - oPos.x) <= this.sizeX * Obstacle.SCALE) &&
-         (Math.abs(myPos.y - oPos.y) <= this.sizeY * Obstacle.SCALE));
+        return ( ( Math.abs( myPos.x - oPos.x ) <= this.sizeX * Obstacle.SCALE ) &&
+         ( Math.abs( myPos.y - oPos.y ) <= this.sizeY * Obstacle.SCALE ) );
     },
 
     start: function(){

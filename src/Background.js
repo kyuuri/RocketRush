@@ -16,11 +16,11 @@ var Background = cc.Sprite.extend({
 
         this.littleStars = [];
 
-        for(var i = 0 ; i < LittleStar.NUM ; i++){
-        	this.littleStars.push(new LittleStar());
+        for( var i = 0 ; i < LittleStar.NUM ; i++ ){
+        	this.littleStars.push( new LittleStar() );
 
         	this.littleStars[i].randomPosition();
-            this.addChild(this.littleStars[i] , 1);
+            this.addChild( this.littleStars[i] , 1 );
             this.littleStars[i].scheduleUpdate();
         }
     },
@@ -29,7 +29,7 @@ var Background = cc.Sprite.extend({
        	this.bgLayer1.activateSlow( isSlow );
        	this.bgLayer2.activateSlow( isSlow );
 
-        for(var i = 0 ; i < LittleStar.NUM ; i++){
+        for( var i = 0 ; i < LittleStar.NUM ; i++ ){
         	this.littleStars[i].activateSlow( isSlow );
         }
     },
@@ -38,7 +38,7 @@ var Background = cc.Sprite.extend({
         this.bgLayer1.start();
        	this.bgLayer2.start();
 
-        for(var i = 0 ; i < LittleStar.NUM ; i++){
+        for( var i = 0 ; i < LittleStar.NUM ; i++ ){
         	this.littleStars[i].start();
         }
     },
@@ -47,7 +47,7 @@ var Background = cc.Sprite.extend({
         this.bgLayer1.stop();
        	this.bgLayer2.stop();
 
-        for(var i = 0 ; i < LittleStar.NUM ; i++){
+        for( var i = 0 ; i < LittleStar.NUM ; i++ ){
         	this.littleStars[i].stop();
         }
     },

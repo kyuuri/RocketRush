@@ -3,8 +3,8 @@ var LittleStar = cc.Sprite.extend({
         this._super();
         this.initWithFile( 'images/littleStar.png' );
 
-        this.setScale(LittleStar.SCALE);
-        this.gravity = -5 + Math.floor(Math.random() * Obstacle.GRAVITY);
+        this.setScale( LittleStar.SCALE );
+        this.gravity = -5 + Math.floor( Math.random() * Obstacle.GRAVITY );
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -13,11 +13,11 @@ var LittleStar = cc.Sprite.extend({
     },
 
     update: function(dt) {
-        if(!this.isSlow){
+        if( !this.isSlow ){
             this.updateLittleStar();
         }
         else{
-            if(this.slowRate % 2 == 0){
+            if( this.slowRate % 2 == 0 ){
                 this.updateLittleStar();
             }
         }
@@ -25,32 +25,32 @@ var LittleStar = cc.Sprite.extend({
     },
 
     updateLittleStar: function(){
-        if(this.started){
+        if( this.started ){
             var pos = this.getPosition();
 
             if(pos.y < -50){
                 this.randomPosition();
             }
             else{
-                this.setPosition(new cc.Point(pos.x, pos.y + this.gravity));
+                this.setPosition( new cc.Point( pos.x, pos.y + this.gravity ) );
             }
         }
     },
 
-    activateSlow: function(isSlow){
+    activateSlow: function( isSlow ){
         this.isSlow = isSlow;
     },
 
     randomPosition: function() {
-        var posx = 1 + Math.floor(Math.random() * screenWidth);
-        var posy = 1 + Math.floor(Math.random() * screenHeight);
-        this.setPosition(new cc.Point(posx, screenHeight + posy + 20));
+        var posx = 1 + Math.floor( Math.random() * screenWidth );
+        var posy = 1 + Math.floor( Math.random() * screenHeight );
+        this.setPosition( new cc.Point( posx, screenHeight + posy + 20 ) );
         
         this.resetValue();
     },
 
     resetValue: function(){
-        this.gravity = -5 + Math.floor(Math.random() * Obstacle.GRAVITY);
+        this.gravity = -5 + Math.floor( Math.random() * Obstacle.GRAVITY );
     },
 
     start: function(){

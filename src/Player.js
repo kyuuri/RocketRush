@@ -19,9 +19,9 @@ var Player = cc.Sprite.extend({
         this.started = false;
     },
 
-    update: function(dt){
-        if(!this.isSlow){
-            if(this.opacity < Player.MAX_OPACITY){
+    update: function( dt ){
+        if( !this.isSlow ){
+            if( this.opacity < Player.MAX_OPACITY ){
                 this.opacity += 15;
                 this.setOpacity( this.opacity );
             }
@@ -33,7 +33,7 @@ var Player = cc.Sprite.extend({
                 this.setOpacity( this.opacity );
             }
 
-            if(this.slowRate % 2 == 0){
+            if( this.slowRate % 2 == 0 ){
                 this.updatePlayer();
             }
         }
@@ -41,40 +41,48 @@ var Player = cc.Sprite.extend({
     },
 
     updatePlayer: function(){
-        if(this.started){
+        if( this.started ){
             var pos = this.getPosition();
-            this.moveShip(pos);
+            this.moveShip( pos );
         }
     },
 
-    startMove: function(direction) {
-        this.isMove(true, direction);
+    startMove: function( direction ) {
+        this.isMove( true, direction );
     },
 
-    stopMove: function(stopDirection) {
-		this.isMove(false, stopDirection);
+    stopMove: function( stopDirection ) {
+		this.isMove( false, stopDirection );
     },
 
-    isMove: function(isMove, cDirection){
-        if(cDirection == Player.ARROWKEY.UP)
+    isMove: function( isMove, cDirection ){
+        if( cDirection == Player.ARROWKEY.UP ){
             this.isUp = isMove;
-        if(cDirection == Player.ARROWKEY.DOWN)
+        }
+        if( cDirection == Player.ARROWKEY.DOWN ){
             this.isDown = isMove;
-        if(cDirection == Player.ARROWKEY.RIGHT)
+        }
+        if( cDirection == Player.ARROWKEY.RIGHT ){
             this.isRight = isMove;
-        if(cDirection == Player.ARROWKEY.LEFT)
+        }
+        if( cDirection == Player.ARROWKEY.LEFT ){
             this.isLeft = isMove;
+        }
     },
 
     moveShip: function(pos){
-        if(this.isUp && pos.y <= screenHeight-30)
+        if( this.isUp && pos.y <= screenHeight - 30 ){
             this.setPosition( new cc.Point( pos.x, pos.y + Player.MOVESPEED ) );
-        if(this.isRight && pos.x <= screenWidth-30)
+        }
+        if( this.isRight && pos.x <= screenWidth - 30){
             this.setPosition( new cc.Point( pos.x + Player.MOVESPEED, pos.y ) );
-        if(this.isLeft && pos.x >= 30)
+        }
+        if( this.isLeft && pos.x >= 30){
             this.setPosition( new cc.Point( pos.x - Player.MOVESPEED, pos.y ) );
-        if(this.isDown && pos.y >= 30)
+        }
+        if( this.isDown && pos.y >= 30){
             this.setPosition( new cc.Point( pos.x, pos.y - Player.MOVESPEED ) );
+        }
     },
 
     start: function(){
@@ -85,12 +93,12 @@ var Player = cc.Sprite.extend({
         this.started = false;
     },
 
-    activateSlow: function(isSlow){
+    activateSlow: function( isSlow ){
         this.isSlow = isSlow;
     },
 
     createPlayerAnimation: function(){
-
+        
         var animation = new cc.Animation.create();
         animation.addSpriteFrameWithFile( 'images/ship1.png' );
         animation.addSpriteFrameWithFile( 'images/ship2.png' );

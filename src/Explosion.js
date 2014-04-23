@@ -1,7 +1,7 @@
 var Explosion = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.setScale(2.0);
+        this.setScale( 2.0 );
     },
 
     animateExplosion: function(){
@@ -17,7 +17,7 @@ var Explosion = cc.Sprite.extend({
         animation.addSpriteFrameWithFile( 'images/ex8.png' );
         animation.addSpriteFrameWithFile( 'images/ex9.png' );
       
-        animation.setRestoreOriginalFrame(true);
+        animation.setRestoreOriginalFrame( true );
         animation.setDelayPerUnit( 0.05 );
         return cc.Animate.create( animation );
     },

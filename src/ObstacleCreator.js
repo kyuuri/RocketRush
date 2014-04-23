@@ -16,7 +16,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.spiralNum = 0;
         this.spiralV = 0;
 
-        for(var i = 1 ; i <= 20 ; i++){
+        for( var i = 1 ; i <= 20 ; i++ ){
             this.obstacles.push( new ObstacleTest() );
         }
 
@@ -43,7 +43,7 @@ var ObstacleCreator = cc.Sprite.extend({
 
             this.gameLayer.updateGameLayer();
 
-            for(var i = 0 ; i < this.obstacles.length ; i++){
+            for( var i = 0 ; i < this.obstacles.length ; i++ ){
                 this.obstacles[i].stop();
             }
         }
@@ -51,9 +51,9 @@ var ObstacleCreator = cc.Sprite.extend({
 
     isCollide: function(){
 
-        for(var i = 0 ; i < this.obstacles.length ; i++){
-            if(this.obstacles[i].closeTo( this.gameLayer.player )){
-                if(this.gameLayer.state == GameLayer.STATES.STARTED){
+        for( var i = 0 ; i < this.obstacles.length ; i++ ){
+            if( this.obstacles[i].closeTo( this.gameLayer.player ) ){
+                if( this.gameLayer.state == GameLayer.STATES.STARTED ){
                     return true;
                 }
             }
@@ -67,12 +67,12 @@ var ObstacleCreator = cc.Sprite.extend({
         this.arcV = v;
         this.arcAngle = arcAngle * Math.PI / 180 - Math.PI / 2;
 
-        this.schedule( this.multiArc, interval, repeat, delay); 
+        this.schedule( this.multiArc, interval, repeat, delay ); 
     },
 
     multiArc: function(){
 
-        for(var i = 0 ; i < this.arcNum ; i++){
+        for( var i = 0 ; i < this.arcNum ; i++ ){
             var x = ( -this.arcNum + ( 2 * ( i + 1 ) - 1 ) );
             var y = this.arcV;
 
@@ -92,7 +92,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.crossNum = crossNum;
         this.crossV = v;
 
-        this.schedule( this.cross, interval, repeat, delay); 
+        this.schedule( this.cross, interval, repeat, delay ); 
     },
 
     cross: function(){
@@ -100,7 +100,7 @@ var ObstacleCreator = cc.Sprite.extend({
         var angle = 360 / this.crossNum ;
         var angleRunner = -90;
 
-        for(var i = 0 ; i < this.crossNum ; i++){
+        for( var i = 0 ; i < this.crossNum ; i++ ){
             this.obstacles[i].vx = this.crossV * Math.cos( angleRunner * Math.PI / 180 );
             this.obstacles[i].vy = this.crossV * Math.sin( angleRunner * Math.PI / 180 );
             angleRunner += angle;
@@ -112,11 +112,11 @@ var ObstacleCreator = cc.Sprite.extend({
         }
     },
 
-    shootLockOn: function( interval, repeat, delay, v){
+    shootLockOn: function( interval, repeat, delay, v ){
 
         this.lockOnV = v;
 
-        this.schedule( this.lockOn, interval, repeat, delay); 
+        this.schedule( this.lockOn, interval, repeat, delay ); 
     },
 
     lockOn: function(){
@@ -157,12 +157,12 @@ var ObstacleCreator = cc.Sprite.extend({
         this.obstacles[0].scheduleUpdate();
     },
 
-    shootSpiral: function( spiralNum, interval, repeat, delay, v){
+    shootSpiral: function( spiralNum, interval, repeat, delay, v ){
 
         this.spiralNum = spiralNum;
         this.spiralV = v;
 
-        this.schedule( this.spiral, interval, repeat, delay); 
+        this.schedule( this.spiral, interval, repeat, delay ); 
     },
 
     spiral: function(){
@@ -170,7 +170,7 @@ var ObstacleCreator = cc.Sprite.extend({
         var angle = 360 / this.spiralNum ;
         var angleRunner = -90;
 
-        for(var i = 0 ; i < this.spiralNum ; i++){
+        for( var i = 0 ; i < this.spiralNum ; i++ ){
             var vx = this.spiralV * Math.cos( angleRunner * Math.PI / 180 );
             var vy = this.spiralV * Math.sin( angleRunner * Math.PI / 180 );
             this.obstacles[i].setVxVy( vx, vy );

@@ -2,8 +2,8 @@ var AdvancedObstacle1 = Obstacle.extend({
 	ctor: function() {
         this._super();
         this.initWithFile( 'images/advancedObstacle.png' );
-        this.setScale(AdvancedObstacle1.SCALE);
-        this.gravity = -2 + Math.floor(Math.random() * Obstacle.GRAVITY);
+        this.setScale( AdvancedObstacle1.SCALE );
+        this.gravity = -2 + Math.floor( Math.random() * Obstacle.GRAVITY );
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -19,10 +19,10 @@ var AdvancedObstacle1 = Obstacle.extend({
         var myPos = this.getPosition();
         var oPos = obj.getPosition();
 
-        var isHit = ((Math.abs(myPos.x - oPos.x) <= this.sizeX * AdvancedObstacle1.SCALE) &&
-        		   (Math.abs(myPos.y - oPos.y) <= this.sizeY *AdvancedObstacle1.SCALE));
+        var isHit = ( ( Math.abs( myPos.x - oPos.x ) <= this.sizeX * AdvancedObstacle1.SCALE ) &&
+        		   ( Math.abs( myPos.y - oPos.y ) <= this.sizeY *AdvancedObstacle1.SCALE ) );
 
-        if(obj.isSlow){
+        if( obj.isSlow ){
         	return false;
         }
         return isHit; 

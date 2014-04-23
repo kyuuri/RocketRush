@@ -12,11 +12,11 @@ var BGLayer = cc.Sprite.extend({
     },
 
     update: function(dt) {
-        if(!this.isSlow){
+        if( !this.isSlow ){
             this.updateBGLayer();
         }
         else{
-            if(this.slowRate % 2 == 0){
+            if( this.slowRate % 2 == 0 ){
                 this.updateBGLayer();
             }
         }
@@ -36,7 +36,7 @@ var BGLayer = cc.Sprite.extend({
         }
     },
 
-    activateSlow: function(isSlow){
+    activateSlow: function( isSlow ){
         this.isSlow = isSlow;
     },
 
