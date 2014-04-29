@@ -5,7 +5,7 @@ var AdvancedObstacle1 = cc.Sprite.extend({
         this.setScale( AdvancedObstacle1.SCALE );
 
         this.setPosition( new cc.p(1000,1000));
-        
+
         this.vx = 0;
         this.vy = 0;
 
@@ -124,6 +124,10 @@ var AdvancedObstacle1 = cc.Sprite.extend({
         this.spiralNum = spiralNum;
         this.angleLaunch = 2 * Math.PI / spiralNum ;
         this.i = i;
+    },
+
+    getType: function(){
+        return 1;
     },
 
 });

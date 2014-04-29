@@ -84,39 +84,6 @@ var ObstacleCreator = cc.Sprite.extend({
 
     },
 
-    resetSelf: function(){
-
-        this.isSlow = false;
-        this.slowRate = 0;
-
-        this.angle = 0;
-
-        this.opacity = ObstacleCreator.MAX_OPACITY;
-        this.opacityUp = false;
-
-        this.scale = ObstacleCreator.MAX_SCALE;
-        this.scaleUp = false;
-        this.setScale(0.25);
-
-        this.obstacles = [];
-
-        this.arcNum = 0;
-        this.arcV = 0;
-        this.arcAngle = 0;
-
-        this.crossNum = 0;
-        this.crossV = 0;
-
-        this.lockOnV = 0;
-
-        this.spiralNum = 0;
-        this.spiralV = 0;
-
-        for( var i = 1 ; i <= 20 ; i++ ){
-            this.obstacles.push( new ObstacleTest() );
-        }
-    },
-
     activateSlow: function( isSlow ){
         this.isSlow = isSlow;
 
@@ -124,6 +91,15 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].activateSlow( isSlow );
         }
     },
+
+    addToLayer: function( obstacle ){
+        if( obstacle.getType() == 0){
+            this.gameLayer.addChild( obstacle , 10 );
+        }
+        else{
+            this.gameLayer.addChild( obstacle , 9 );
+        }
+    }
 
     isCollide: function(){
 
@@ -157,7 +133,7 @@ var ObstacleCreator = cc.Sprite.extend({
 
             this.obstacles[i].setPosition( this.getPosition() );
 
-            this.gameLayer.addChild( this.obstacles[i], 10 );
+            this.addToLayer( this.obstacles[i] );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
@@ -182,7 +158,7 @@ var ObstacleCreator = cc.Sprite.extend({
             angleRunner += angle;
             this.obstacles[i].setPosition( this.getPosition() );
 
-            this.gameLayer.addChild( this.obstacles[i], 10 );
+            this.addToLayer( this.obstacles[i] );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
@@ -228,7 +204,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.obstacles[0].vy = this.lockOnV * Math.sin( angle );
         this.obstacles[0].setPosition( this.getPosition() );
 
-        this.gameLayer.addChild( this.obstacles[0], 9 );
+        this.addToLayer( this.obstacles[i] );
         this.obstacles[0].start();
         this.obstacles[0].scheduleUpdate();
     },
@@ -252,7 +228,7 @@ var ObstacleCreator = cc.Sprite.extend({
             angleRunner += angle;
             this.obstacles[i].setPosition( this.getPosition() );
 
-            this.gameLayer.addChild( this.obstacles[i], 10 );
+            this.addToLayer( this.obstacles[i] );
             this.obstacles[i].spiralOn( true, i, this.spiralNum );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
