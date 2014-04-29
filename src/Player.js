@@ -2,7 +2,7 @@ var Player = cc.Sprite.extend({
     ctor: function() {
         this._super();
         //this.initWithFile( 'images/ship.png' );
-        this.setAnchorPoint( 0.5, 0.7 );
+        this.setAnchorPoint( 0.5, 0.6 );
         this.runAction( this.createPlayerAnimation() );
         this.setScale( 0.5 );
 

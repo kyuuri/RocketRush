@@ -3,6 +3,9 @@ var ObstacleTest = cc.Sprite.extend({
         this._super();
         this.initWithFile( 'images/obstacleRed.png' );
         this.setScale( ObstacleTest.SCALE );
+
+        this.setPosition( new cc.p(1000,1000));
+
         this.vx = 0;
         this.vy = 0;
 
@@ -90,8 +93,8 @@ var ObstacleTest = cc.Sprite.extend({
 
     isOutOfScreen: function(){
         var pos = this.getPosition();
-        var outX = ( pos.x < -100 ) || ( pos.x > screenWidth + 100 );
-        var outY = ( pos.y < -100 ) || ( pos.y > screenHeight + 100 );
+        var outX = ( pos.x < -50 ) || ( pos.x > screenWidth + 50 );
+        var outY = ( pos.y < -50 ) || ( pos.y > screenHeight + 50 );
 
         return outX && outY;
     },
@@ -126,6 +129,6 @@ var ObstacleTest = cc.Sprite.extend({
 });
 
 ObstacleTest.ANGLE_RATE = 3;
-ObstacleTest.INITIAL_SIZE_X = 12;
-ObstacleTest.INITIAL_SIZE_Y = 12;
+ObstacleTest.INITIAL_SIZE_X = 18;
+ObstacleTest.INITIAL_SIZE_Y = 18;
 ObstacleTest.SCALE = 0.9;
