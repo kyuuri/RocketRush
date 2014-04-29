@@ -137,7 +137,10 @@ var ObstacleCreator = cc.Sprite.extend({
     },
 
     addToLayer: function( obstacle ){
+
         this.gameLayer.removeChild( obstacle );
+        obstacle.resetSelf();
+
         if( obstacle.getType() == 0){
             this.gameLayer.addChild( obstacle , 10 );
         }
@@ -266,15 +269,7 @@ var ObstacleCreator = cc.Sprite.extend({
     },
 
     spiral: function(){
-
-        var angle = 360 / this.spiralNum ;
-        var angleRunner = -90;
-
         for( var i = 0 ; i < this.spiralNum ; i++ ){
-            var vx = this.spiralV * Math.cos( angleRunner * Math.PI / 180 );
-            var vy = this.spiralV * Math.sin( angleRunner * Math.PI / 180 );
-            angleRunner += angle;
-
             this.addToLayer( this.obstacles[i] );
             
             this.obstacles[i].setPosition( this.getPosition() );

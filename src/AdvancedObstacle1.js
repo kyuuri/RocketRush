@@ -25,8 +25,6 @@ var AdvancedObstacle1 = cc.Sprite.extend({
         this.angleLaunch = 0;
         this.i = 0;
 
-        this.rate = 1;
-
         this.isSlow = false;
         this.slowRate = 0;
 
@@ -36,9 +34,18 @@ var AdvancedObstacle1 = cc.Sprite.extend({
         this.started = false;
     },
 
-    setVxVy: function( vx, vy ){
-        this.vx = vx;
-        this.vy = vy;
+    resetSelf: function(){
+        this.spiralIsOn = false;
+        this.angle = 0;
+        this.theta = 0;
+        this.a = 2;
+        this.b = 0.4;
+        this.r = 1;
+        this.angleRate = ObstacleTest.ANGLE_RATE;
+
+        this.spiralNum = 0;
+        this.angleLaunch = 0;
+        this.i = 0;
     },
 
     update: function( dt ) {
