@@ -1,7 +1,20 @@
 var ObstacleCreator = cc.Sprite.extend({
     ctor: function( game ) {
         this._super();
-        this.initWithFile( 'images/advancedObstacle.png' );
+        this.initWithFile( 'images/obstacleCreatorLight.png' );
+
+        this.isSlow = false;
+        this.slowRate = 0;
+
+        this.angle = 0;
+
+        this.opacity = ObstacleCreator.MAX_OPACITY;
+        this.opacityUp = false;
+
+        this.scale = ObstacleCreator.MAX_SCALE;
+        this.scaleUp = false;
+        this.setScale(0.25);
+
         this.obstacles = [];
 
         this.arcNum = 0;
@@ -23,13 +36,27 @@ var ObstacleCreator = cc.Sprite.extend({
         this.gameLayer = game;
         this.scheduleUpdate();
 
-        this.shootMultiArc( 5, 1, 5, 2, 8, -90);
+        //this.shootMultiArc( 5, 1, 5, 2, 8, -90);
         //this.shootCross( 7, 1, 5, 2, 8);
         //this.shootLockOn(1,5,2,8)
         //this.shootSpiral( 8, 1, 0, 2, 10);
     },
 
     update: function(){
+
+        if( !this.isSlow ){
+            this.updateObstacleCreator();
+        }
+        else{
+            if( this.slowRate % 2 == 0 ){
+                this.updateObstacleCreator();
+            }
+        }
+        this.slowRate++;
+
+    },
+
+    updateObstacleCreator: function(){
 
         if( this.gameLayer.state == GameLayer.STATES.DEAD || this.gameLayer.state == GameLayer.STATES.END ){
             this.unschedule( this.multiArc );
@@ -47,6 +74,46 @@ var ObstacleCreator = cc.Sprite.extend({
                 this.obstacles[i].stop();
             }
         }
+
+        if( this.scaleUp ){
+            this.scale += ObstacleCreator.SCALE_RATE;
+
+            if( this.scale >= ObstacleCreator.MAX_SCALE ){
+                this.scaleUp = false;
+            }
+        }
+        else{
+            this.scale -= ObstacleCreator.SCALE_RATE;
+
+            if( this.scale <= ObstacleCreator.MIN_SCALE ){
+                this.scaleUp = true;
+            }
+        }
+
+        if( this.opacityUp ){
+            this.opacity += ObstacleCreator.OPACITY_RATE;
+
+            if( this.opacity >= ObstacleCreator.MAX_OPACITY ){
+                this.opacityUp = false;
+            }
+        }
+        else{
+            this.opacity -= ObstacleCreator.OPACITY_RATE;
+
+            if( this.opacity <= ObstacleCreator.MIN_OPACITY ){
+                this.opacityUp = true;
+            }
+        }
+
+        if( this.angle == 360 ){
+            this.angle = 0;
+        }
+        this.angle += 0.36;
+
+        this.setRotation( this.angle );
+        this.setScale( this.scale );
+        this.setOpacity( this.opacity );
+
     },
 
     isCollide: function(){
@@ -173,7 +240,6 @@ var ObstacleCreator = cc.Sprite.extend({
         for( var i = 0 ; i < this.spiralNum ; i++ ){
             var vx = this.spiralV * Math.cos( angleRunner * Math.PI / 180 );
             var vy = this.spiralV * Math.sin( angleRunner * Math.PI / 180 );
-            this.obstacles[i].setVxVy( vx, vy );
             angleRunner += angle;
             this.obstacles[i].setPosition( this.getPosition() );
 
@@ -185,7 +251,13 @@ var ObstacleCreator = cc.Sprite.extend({
     },
 
 
-
-
 });
+
+ObstacleCreator.MAX_OPACITY = 255;
+ObstacleCreator.MIN_OPACITY = 195;
+ObstacleCreator.OPACITY_RATE = 0.5;
+
+ObstacleCreator.MAX_SCALE = 0.27;
+ObstacleCreator.MIN_SCALE = 0.25;
+ObstacleCreator.SCALE_RATE = 0.0005;
 

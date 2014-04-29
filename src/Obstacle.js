@@ -20,7 +20,7 @@ var Obstacle = cc.Sprite.extend({
             this.updateObstacle();
         }
         else{
-            if( this.slowRate % 3 == 0 ){
+            if( this.slowRate % 2 == 0 ){
                 this.updateObstacle();
             }
         }
