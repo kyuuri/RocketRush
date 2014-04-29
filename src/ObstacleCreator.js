@@ -133,6 +133,7 @@ var ObstacleCreator = cc.Sprite.extend({
     },
 
     addToLayer: function( obstacle ){
+        this.gameLayer.removeChild( obstacle );
         if( obstacle.getType() == 0){
             this.gameLayer.addChild( obstacle , 10 );
         }
@@ -171,9 +172,10 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].vx = x * Math.cos( this.arcAngle ) - y * Math.sin( this.arcAngle );
             this.obstacles[i].vy = y * Math.cos( this.arcAngle ) + x * Math.sin( this.arcAngle );
 
-            this.obstacles[i].setPosition( this.getPosition() );
 
             this.addToLayer( this.obstacles[i] );
+
+            this.obstacles[i].setPosition( this.getPosition() );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
@@ -196,9 +198,10 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].vx = this.crossV * Math.cos( angleRunner * Math.PI / 180 );
             this.obstacles[i].vy = this.crossV * Math.sin( angleRunner * Math.PI / 180 );
             angleRunner += angle;
-            this.obstacles[i].setPosition( this.getPosition() );
 
             this.addToLayer( this.obstacles[i] );
+
+            this.obstacles[i].setPosition( this.getPosition() );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
@@ -242,9 +245,10 @@ var ObstacleCreator = cc.Sprite.extend({
 
         this.obstacles[0].vx = this.lockOnV * Math.cos( angle );
         this.obstacles[0].vy = this.lockOnV * Math.sin( angle );
-        this.obstacles[0].setPosition( this.getPosition() );
 
         this.addToLayer( this.obstacles[0] );
+
+        this.obstacles[0].setPosition( this.getPosition() );
         this.obstacles[0].start();
         this.obstacles[0].scheduleUpdate();
     },
@@ -266,9 +270,10 @@ var ObstacleCreator = cc.Sprite.extend({
             var vx = this.spiralV * Math.cos( angleRunner * Math.PI / 180 );
             var vy = this.spiralV * Math.sin( angleRunner * Math.PI / 180 );
             angleRunner += angle;
-            this.obstacles[i].setPosition( this.getPosition() );
 
             this.addToLayer( this.obstacles[i] );
+            
+            this.obstacles[i].setPosition( this.getPosition() );
             this.obstacles[i].spiralOn( true, i, this.spiralNum );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();

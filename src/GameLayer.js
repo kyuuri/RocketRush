@@ -228,6 +228,7 @@ var GameLayer = cc.LayerColor.extend({
         var pos = this.player.getPosition();
 
         this.ex = new Explosion();
+        this.ex.setOpacity(255);
 
         this.ex.setPosition(pos.x-110,pos.y-110);
 

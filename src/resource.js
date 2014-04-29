@@ -6,6 +6,7 @@ var g_resources = [
     {src: 'images/obstacle.png' },
     {src: 'images/obstacleRed.png' },
     {src: 'images/advancedObstacle.png' },
+    {src: 'images/advancedObstacleBlue.png' },
     {src: 'images/ex1.png' },
     {src: 'images/ex2.png' },
     {src: 'images/ex3.png' },

@@ -93,8 +93,8 @@ var ObstacleTest = cc.Sprite.extend({
 
     isOutOfScreen: function(){
         var pos = this.getPosition();
-        var outX = ( pos.x < -50 ) || ( pos.x > screenWidth + 50 );
-        var outY = ( pos.y < -50 ) || ( pos.y > screenHeight + 50 );
+        var outX = ( pos.x < -10 ) || ( pos.x > screenWidth + 10 );
+        var outY = ( pos.y < -10 ) || ( pos.y > screenHeight + 10 );
 
         return outX && outY;
     },
@@ -129,6 +129,6 @@ var ObstacleTest = cc.Sprite.extend({
 });
 
 ObstacleTest.ANGLE_RATE = 3;
-ObstacleTest.INITIAL_SIZE_X = 18;
-ObstacleTest.INITIAL_SIZE_Y = 18;
+ObstacleTest.INITIAL_SIZE_X = 20;
+ObstacleTest.INITIAL_SIZE_Y = 20;
 ObstacleTest.SCALE = 0.9;

@@ -47,8 +47,8 @@ var DA1_FallenStar = DropAlgorithm.extend({
             this.rateTime == 500 || this.rateTime == 600 ||
             this.rateTime == 700 ){
             //arcNum, interval, repeat, delay, v, arcAngle
-            this.obstacleCreators[0].shootMultiArc( 4, 0, 0, 0, 9, -135 );
-            this.obstacleCreators[1].shootMultiArc( 4, 0, 0, 0, 9, -45 );
+            this.obstacleCreators[0].shootMultiArc( 4, 0, 0, 0, 10, -135 );
+            this.obstacleCreators[1].shootMultiArc( 4, 0, 0, 0, 10, -45 );
         }
 
         if( this.rateTime == 300 || this.rateTime == 400 ||
