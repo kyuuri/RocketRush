@@ -69,10 +69,6 @@ var ObstacleCreator = cc.Sprite.extend({
             this.gameLayer.state = GameLayer.STATES.DEAD;
 
             this.gameLayer.updateGameLayer();
-
-            for( var i = 0 ; i < this.obstacles.length ; i++ ){
-                this.obstacles[i].stop();
-            }
         }
 
         if( this.scaleUp ){
@@ -114,6 +110,14 @@ var ObstacleCreator = cc.Sprite.extend({
         this.setScale( this.scale );
         this.setOpacity( this.opacity );
 
+    },
+
+    activateSlow: function( isSlow ){
+        this.isSlow = isSlow;
+
+        for( var i = 0 ; i < 20 ; i++ ){
+            this.obstacles[i].activateSlow( isSlow );
+        }
     },
 
     isCollide: function(){

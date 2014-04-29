@@ -24,7 +24,10 @@
             'src/background.js',
             'src/littleStar.js',
             'src/ObstacleCreator.js',
-            'src/ObstacleTest.js'
+            'src/ObstacleTest.js',
+            'src/DropAlgorithm.js',
+            'src/DA1_FallenStar.js',
+
                  //add your own files in order here
         ]
     };

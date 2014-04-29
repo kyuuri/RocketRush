@@ -13,23 +13,23 @@ var GameLayer = cc.LayerColor.extend({
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
 
-        this.obstacles = [];
-        for(var i = 0 ; i < 18 ; i++){
-            //var type = Math.floor(Math.random() * 2); // now there are only 2 types
+        // this.obstacles = [];
+        // for(var i = 0 ; i < 18 ; i++){
+        //     //var type = Math.floor(Math.random() * 2); // now there are only 2 types
 
-            if( i <= 7){
-                this.obstacles.push(new AdvancedObstacle1());
-            }
-            else{
-                this.obstacles.push(new Obstacle());
-            }
-        }
+        //     if( i <= 7){
+        //         this.obstacles.push(new AdvancedObstacle1());
+        //     }
+        //     else{
+        //         this.obstacles.push(new Obstacle());
+        //     }
+        // }
 
-        for(var i = 0 ; i < this.obstacles.length ; i++){
-            this.obstacles[i].randomPosition();
-            this.addChild(this.obstacles[i] , 1);
-            this.obstacles[i].scheduleUpdate();
-        }
+        // for(var i = 0 ; i < this.obstacles.length ; i++){
+        //     this.obstacles[i].randomPosition();
+        //     this.addChild(this.obstacles[i] , 1);
+        //     this.obstacles[i].scheduleUpdate();
+        // }
 
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 35 );
         this.scoreLabel.setPosition( new cc.Point( 520, 710 ) );
@@ -37,7 +37,7 @@ var GameLayer = cc.LayerColor.extend({
 
         this.skillSlowLabel = cc.LabelTTF.create( 'Slow Gauge', 'Arial', 18 );
         this.skillSlowLabel.setPosition( new cc.Point( 415, 685 ) );
-        this.addChild( this.skillSlowLabel, 3 );
+        this.addChild( this.skillSlowLabel, 30 );
 
         this.skillSlow = 1000;
 
@@ -50,8 +50,8 @@ var GameLayer = cc.LayerColor.extend({
         
         this.addChild( this.player, 2 );
 
-        this.addChild( this.scoreLabel, 3 );
-        this.addChild( this.skillLabel, 3 );
+        this.addChild( this.scoreLabel, 30 );
+        this.addChild( this.skillLabel, 30 );
         this.player.scheduleUpdate();
         this.scheduleUpdate();
 
@@ -65,9 +65,14 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.skillBar , 3);
 
         //test ObCreator
-        this.obCre = new ObstacleCreator( this );
-        this.addChild(this.obCre, 10);
-        this.obCre.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 + 200) );
+        //this.obCre = new ObstacleCreator( this );
+        //this.addChild(this.obCre, 10);
+        //this.obCre.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 + 200) );
+
+        //test DropAlgo
+        this.DA = new DA1_FallenStar( this );
+        this.addChild( this.DA , 10 );
+        this.DA.scheduleUpdate();
 
         return true;
     },
@@ -79,9 +84,9 @@ var GameLayer = cc.LayerColor.extend({
             this.player.start();
             this.bg.start();
 
-            for(var i = 0 ; i < this.obstacles.length ; i++){
-                this.obstacles[i].start();
-            }
+            // for(var i = 0 ; i < this.obstacles.length ; i++){
+            //     this.obstacles[i].start();
+            // }
             
         }
         if(this.state == GameLayer.STATES.STARTED){
@@ -112,36 +117,37 @@ var GameLayer = cc.LayerColor.extend({
         }
     },
 
-    isCollide: function(){
+    // isCollide: function(){
 
-        for(var i = 0 ; i < this.obstacles.length ; i++){
-            if(this.obstacles[i].closeTo(this.player)){
-                return true;
-            }
-        }
-        return false;
-    },
+    //     for(var i = 0 ; i < this.obstacles.length ; i++){
+    //         if(this.obstacles[i].closeTo(this.player)){
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // },
 
-    bombObstacle: function(){
+    // bombObstacle: function(){
 
-        for(var i = 0 ; i < this.obstacles.length ; i++){
-            if(this.bomb.closeTo(this.obstacles[i]) && this.bomb.active){
-                this.explodeObstacle(this.obstacles[i]);
-                this.obstacles[i].randomPosition();
-            }
-        }
-    },
+    //     for(var i = 0 ; i < this.obstacles.length ; i++){
+    //         if(this.bomb.closeTo(this.obstacles[i]) && this.bomb.active){
+    //             this.explodeObstacle(this.obstacles[i]);
+    //             this.obstacles[i].randomPosition();
+    //         }
+    //     }
+    // },
 
     activateSlow: function( isSlow ){
         this.slow = isSlow;
 
         this.bg.activateSlow( this.slow );
         this.player.activateSlow( this.slow );
-        this.bomb.activateSlow(this.slow);
+        this.bomb.activateSlow( this.slow );
+        this.DA.activateSlow( this.slow );
 
-        for(var i = 0 ; i < this.obstacles.length ; i++){
-            this.obstacles[i].activateSlow(this.slow);
-        }
+        // for(var i = 0 ; i < this.obstacles.length ; i++){
+        //     this.obstacles[i].activateSlow(this.slow);
+        // }
     },
 
     activateBomb: function(){
@@ -175,14 +181,14 @@ var GameLayer = cc.LayerColor.extend({
             this.skillBar.setBar( this.skillSlow / 1000 );
             //this.skillSlowLabel.setString( this.skillSlow );
         }
-        this.bombObstacle();
+        //this.bombObstacle();
     },
 
     updateGameLayer: function(){
         if(this.state == GameLayer.STATES.STARTED){
-                if(this.isCollide()){
-                    this.state = GameLayer.STATES.DEAD;
-                }
+                // if(this.isCollide()){
+                //     this.state = GameLayer.STATES.DEAD;
+                // }
                 this.scoreLabel.setString( ++this.score );
             }
 
@@ -192,9 +198,9 @@ var GameLayer = cc.LayerColor.extend({
             this.player.stop();
             this.bg.stop();
 
-            for(var i = 0 ; i < this.obstacles.length ; i++){
-                this.obstacles[i].stop();
-            }
+            // for(var i = 0 ; i < this.obstacles.length ; i++){
+            //     this.obstacles[i].stop();
+            // }
 
             this.removeChild(this.player);
             this.explodePlayer();
@@ -225,24 +231,24 @@ var GameLayer = cc.LayerColor.extend({
    
     },
 
-    explodeObstacle: function(ob){
-        var pos = ob.getPosition();
-        //ob.stop();
+    //explodeObstacle: function(ob){
+    //     var pos = ob.getPosition();
+    //     //ob.stop();
 
 
 
-        this.ex = new Explosion();
-        this.ex.setScale(2.0);
+    //     this.ex = new Explosion();
+    //     this.ex.setScale(2.0);
 
-        this.ex.setPosition(pos.x-110,pos.y-110);
+    //     this.ex.setPosition(pos.x-110,pos.y-110);
 
-        // 110 is for calibrating the explosion's position
+    //     // 110 is for calibrating the explosion's position
 
-        this.exAction = this.ex.animateExplosion();
-        this.ex.runAction(this.exAction);
-        this.addChild( this.ex, 2 );
+    //     this.exAction = this.ex.animateExplosion();
+    //     this.ex.runAction(this.exAction);
+    //     this.addChild( this.ex, 2 );
    
-    },
+    // },
 
 });
 
