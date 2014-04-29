@@ -142,7 +142,7 @@ var Player = cc.Sprite.extend({
       
         //animation.setRestoreOriginalFrame(true);
         animation.setDelayPerUnit( 0.15 );
-        return cc.RepeatForever.create(cc.Animate.create( animation ));
+        return cc.RepeatForever.create( cc.Animate.create( animation ) );
     },
 
 });

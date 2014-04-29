@@ -27,6 +27,7 @@
             'src/ObstacleTest.js',
             'src/DropAlgorithm.js',
             'src/DA1_FallenStar.js',
+            'src/DA2_DarkSpiral.js',
 
                  //add your own files in order here
         ]

@@ -133,6 +133,6 @@ var AdvancedObstacle1 = cc.Sprite.extend({
 });
 
 AdvancedObstacle1.ANGLE_RATE = 3;
-AdvancedObstacle1.INITIAL_SIZE_X = 27;
-AdvancedObstacle1.INITIAL_SIZE_Y = 27;
+AdvancedObstacle1.INITIAL_SIZE_X = 40;
+AdvancedObstacle1.INITIAL_SIZE_Y = 40;
 AdvancedObstacle1.SCALE = 1.5;

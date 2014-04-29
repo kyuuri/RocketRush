@@ -62,7 +62,7 @@ var GameLayer = cc.LayerColor.extend({
         //skill1 bar
         this.skillBar = new SkillBar();
         this.skillBar.setPosition( new cc.Point( 455, 660 ) );
-        this.addChild( this.skillBar , 3);
+        this.addChild( this.skillBar , 13);
 
         //test ObCreator
         //this.obCre = new ObstacleCreator( this );
@@ -70,7 +70,7 @@ var GameLayer = cc.LayerColor.extend({
         //this.obCre.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 + 200) );
 
         //test DropAlgo
-        this.DA = new DA1_FallenStar( this );
+        this.DA = new DA2_DarkSpiral( this );
         this.addChild( this.DA , 10 );
         this.DA.scheduleUpdate();
 
