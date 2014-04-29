@@ -12,6 +12,7 @@ var ObstacleCreator = cc.Sprite.extend({
         //this.shootCross( 7, 1, 5, 2, 8);
         //this.shootLockOn(1,5,2,8)
         //this.shootSpiral( 8, 1, 0, 2, 10);
+        //this.shootLine( 1, 1, 1, 1, -90);
     },
 
     resetSelf: function(){
@@ -41,6 +42,9 @@ var ObstacleCreator = cc.Sprite.extend({
  
         this.spiralNum = 0;
         this.spiralV = 0;
+
+        this.lineV = 0;
+        this.lineAngle = 0;
  
         for( var i = 1 ; i <= 20 ; i++ ){
             this.obstacles.push( new ObstacleTest() );
@@ -275,6 +279,33 @@ var ObstacleCreator = cc.Sprite.extend({
             
             this.obstacles[i].setPosition( this.getPosition() );
             this.obstacles[i].spiralOn( true, i, this.spiralNum );
+            this.obstacles[i].start();
+            this.obstacles[i].scheduleUpdate();
+        }
+    },
+
+    shootLine: function( interval, repeat, delay, v, angle ){
+
+        this.lineV = v;
+        this.lineAngle = angle * Math.PI / 180 - Math.PI / 4;
+
+        this.schedule( this.line, interval, repeat, delay ); 
+    },
+
+    line: function(){
+
+        for( var i = 0 ; i < 10 ; i++ ){
+
+            var x = this.lineV + i/2;
+            var y = x;
+
+            this.obstacles[i].vx = x * Math.cos( this.lineAngle ) - y * Math.sin( this.lineAngle );
+            this.obstacles[i].vy = y * Math.cos( this.lineAngle ) + x * Math.sin( this.lineAngle );
+
+
+            this.addToLayer( this.obstacles[i] );
+
+            this.obstacles[i].setPosition( this.getPosition() );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
