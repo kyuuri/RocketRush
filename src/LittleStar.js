@@ -4,7 +4,7 @@ var LittleStar = cc.Sprite.extend({
         this.initWithFile( 'images/littleStar.png' );
 
         this.setScale( LittleStar.SCALE );
-        this.gravity = -5 + Math.floor( Math.random() * Obstacle.GRAVITY );
+        this.gravity = -5 + Math.floor( Math.random() * LittleStar.GRAVITY );
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -50,7 +50,7 @@ var LittleStar = cc.Sprite.extend({
     },
 
     resetValue: function(){
-        this.gravity = -5 + Math.floor( Math.random() * Obstacle.GRAVITY );
+        this.gravity = -5 + Math.floor( Math.random() * LittleStar.GRAVITY );
     },
 
     start: function(){

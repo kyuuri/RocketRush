@@ -1,8 +1,8 @@
 var ObstacleTest = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'images/obstacle.png' );
-        this.setScale( Obstacle.SCALE );
+        this.initWithFile( 'images/obstacleRed.png' );
+        this.setScale( ObstacleTest.SCALE );
         this.vx = 0;
         this.vy = 0;
 
@@ -27,8 +27,8 @@ var ObstacleTest = cc.Sprite.extend({
         this.isSlow = false;
         this.slowRate = 0;
 
-        this.sizeX = Obstacle.INITIAL_SIZE_X;
-        this.sizeY = Obstacle.INITIAL_SIZE_Y;
+        this.sizeX = ObstacleTest.INITIAL_SIZE_X;
+        this.sizeY = ObstacleTest.INITIAL_SIZE_Y;
 
         this.started = false;
     },
@@ -83,18 +83,6 @@ var ObstacleTest = cc.Sprite.extend({
         this.isSlow = isSlow;
     },
 
-    randomPosition: function() {
-        var posx = 1 + Math.floor( Math.random() * screenWidth );
-        var posy = 1 + Math.floor( Math.random() * screenHeight );
-        this.setPosition( new cc.Point( posx, screenHeight + posy + this.sizeY ) );
-        
-        this.resetValue();
-    },
-
-    resetValue: function(){
-        this.vy = -2 + Math.floor( Math.random() * Obstacle.GRAVITY );
-    },
-
     destroySelf: function(){
         this.spiralIsOn = false;
         this.removeFromParent();
@@ -112,8 +100,8 @@ var ObstacleTest = cc.Sprite.extend({
         var myPos = this.getPosition();
         var oPos = obj.getPosition();
 
-        return ( ( Math.abs( myPos.x - oPos.x ) <= this.sizeX * Obstacle.SCALE ) &&
-         ( Math.abs( myPos.y - oPos.y ) <= this.sizeY * Obstacle.SCALE ) );
+        return ( ( Math.abs( myPos.x - oPos.x ) <= this.sizeX * ObstacleTest.SCALE ) &&
+         ( Math.abs( myPos.y - oPos.y ) <= this.sizeY * ObstacleTest.SCALE ) );
     },
 
     start: function(){
@@ -138,3 +126,6 @@ var ObstacleTest = cc.Sprite.extend({
 });
 
 ObstacleTest.ANGLE_RATE = 3;
+ObstacleTest.INITIAL_SIZE_X = 12;
+ObstacleTest.INITIAL_SIZE_Y = 12;
+ObstacleTest.SCALE = 0.9;

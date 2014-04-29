@@ -223,7 +223,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.obstacles[0].vy = this.lockOnV * Math.sin( angle );
         this.obstacles[0].setPosition( this.getPosition() );
 
-        this.gameLayer.addChild( this.obstacles[0], 10 );
+        this.gameLayer.addChild( this.obstacles[0], 9 );
         this.obstacles[0].start();
         this.obstacles[0].scheduleUpdate();
     },

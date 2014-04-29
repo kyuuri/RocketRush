@@ -48,7 +48,7 @@ var GameLayer = cc.LayerColor.extend({
         //test bomb
         this.bomb = new Bomb();
         
-        this.addChild( this.player, 2 );
+        this.addChild( this.player, 15 );
 
         this.addChild( this.scoreLabel, 30 );
         this.addChild( this.skillLabel, 30 );
@@ -220,12 +220,12 @@ var GameLayer = cc.LayerColor.extend({
 
         this.exAction = this.ex.animateExplosion();
         this.ex.runAction(this.exAction);
-        this.addChild( this.ex, 2 );
+        this.addChild( this.ex, 15 );
 
         this.endLabel = cc.LabelTTF.create( 'กากงะ T^T', 'Arial', 100 );
         this.endLabel.setPosition( new cc.Point( 300, 400 ) );
         //this.endLabel.setColor(255,255,255);
-        this.addChild(this.endLabel,3);
+        this.addChild( this.endLabel,100 );
 
         this.state = GameLayer.STATES.END;
    
