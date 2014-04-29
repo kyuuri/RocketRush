@@ -10,6 +10,11 @@ var Player = cc.Sprite.extend({
         this.slowRate = 0;
         this.opacity = Player.MAX_OPACITY;
 
+        this.health = 10;
+        this.blinking = false;
+        this.blinkingRate = 0;
+        this.blinkDown = false;
+
         //direction
         this.isUp = false;
         this.isDown = false;
@@ -43,8 +48,40 @@ var Player = cc.Sprite.extend({
     updatePlayer: function(){
         if( this.started ){
             var pos = this.getPosition();
-            this.moveShip( pos );
+            if( this.blinking && this.blinkingRate < 50){
+                //can't move;
+            }
+            else{
+                this.moveShip( pos );
+            }
         }
+
+        if( this.blinking ){
+            if( this.blinkingRate % 3 == 0 ){
+                if( !this.blinkDown ){
+                    this.setOpacity( this.opacity / 2 );
+                    this.blinkDown = true;
+                }
+                else{
+                    this.setOpacity( this.opacity );
+                    this.blinkDown = false;
+                }
+
+            }
+        }
+
+        if( this.blinking ){  
+            this.blinkingRate++;
+        }
+        if( this.blinkingRate == 120 ){
+            this.setOpacity( this.opacity );
+            this.blink( false );
+            this.blinkingRate = 0;
+        }
+    },
+
+    blink: function( blinking ){
+        this.blinking = blinking;
     },
 
     startMove: function( direction ) {

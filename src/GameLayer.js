@@ -209,6 +209,21 @@ var GameLayer = cc.LayerColor.extend({
 
     },
 
+    damagePlayer: function(){
+        var pos = this.player.getPosition();
+
+        this.ex = new Explosion();
+        this.ex.setOpacity(200);
+
+        this.ex.setPosition(pos.x-110,pos.y-110);
+
+        // 110 is for calibrating the explosion's position
+
+        this.exAction = this.ex.animateExplosion();
+        this.ex.runAction(this.exAction);
+        this.addChild( this.ex, 15 );
+    },
+
     explodePlayer: function(){
         var pos = this.player.getPosition();
 

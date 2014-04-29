@@ -68,10 +68,17 @@ var ObstacleCreator = cc.Sprite.extend({
             this.unschedule( this.cross );
             this.unschedule( this.lockOn );
             this.unschedule( this.spiral );
-            //this.unschedule(this.shoot);
         }
-        else if( this.isCollide() ){
-            this.gameLayer.state = GameLayer.STATES.DEAD;
+        else if( this.isCollide() && !this.gameLayer.player.blinking ){
+            this.gameLayer.player.health -= 2;
+
+            if( this.gameLayer.player.health > 0){
+                this.gameLayer.player.blink( true );
+                this.gameLayer.damagePlayer();
+            }
+            else{
+                this.gameLayer.state = GameLayer.STATES.DEAD;
+            }  
 
             this.gameLayer.updateGameLayer();
         }
