@@ -242,8 +242,7 @@ var GameLayer = cc.LayerColor.extend({
         this.ex.runAction(this.exAction);
         this.addChild( this.ex, 2 );
    
-    }
-
+    },
 
 });
 

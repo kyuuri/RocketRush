@@ -1,5 +1,5 @@
 var ObstacleCreator = cc.Sprite.extend({
-    ctor: function( game ) {
+    ctor: function( gameLayer ) {
         this._super();
         this.initWithFile( 'images/obstacleCreatorLight.png' );
 
@@ -33,7 +33,7 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles.push( new ObstacleTest() );
         }
 
-        this.gameLayer = game;
+        this.gameLayer = gameLayer;
         this.scheduleUpdate();
 
         //this.shootMultiArc( 5, 1, 5, 2, 8, -90);
