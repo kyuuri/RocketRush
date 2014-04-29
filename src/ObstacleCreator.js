@@ -14,6 +14,39 @@ var ObstacleCreator = cc.Sprite.extend({
         //this.shootSpiral( 8, 1, 0, 2, 10);
     },
 
+    resetSelf: function(){
+ 
+        this.isSlow = false;
+        this.slowRate = 0;
+ 
+        this.angle = 0;
+ 
+        this.opacity = ObstacleCreator.MAX_OPACITY;
+        this.opacityUp = false;
+ 
+        this.scale = ObstacleCreator.MAX_SCALE;
+        this.scaleUp = false;
+        this.setScale(0.25);
+
+        this.obstacles = [];
+ 
+        this.arcNum = 0;
+        this.arcV = 0;
+        this.arcAngle = 0;
+ 
+        this.crossNum = 0;
+        this.crossV = 0;
+ 
+        this.lockOnV = 0;
+ 
+        this.spiralNum = 0;
+        this.spiralV = 0;
+ 
+        for( var i = 1 ; i <= 20 ; i++ ){
+            this.obstacles.push( new ObstacleTest() );
+        }
+    },
+
     update: function(){
 
         if( !this.isSlow ){
@@ -99,7 +132,7 @@ var ObstacleCreator = cc.Sprite.extend({
         else{
             this.gameLayer.addChild( obstacle , 9 );
         }
-    }
+    },
 
     isCollide: function(){
 
@@ -204,7 +237,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.obstacles[0].vy = this.lockOnV * Math.sin( angle );
         this.obstacles[0].setPosition( this.getPosition() );
 
-        this.addToLayer( this.obstacles[i] );
+        this.addToLayer( this.obstacles[0] );
         this.obstacles[0].start();
         this.obstacles[0].scheduleUpdate();
     },
