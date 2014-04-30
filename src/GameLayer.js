@@ -70,7 +70,8 @@ var GameLayer = cc.LayerColor.extend({
         //this.obCre.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 + 200) );
 
         //test DropAlgo
-        this.DA = new DA2_DarkSpiral( this );
+        //this.DA = new DA2_DarkSpiral( this );
+        this.DA = new DA1_FallenStar( this );
         this.addChild( this.DA , 10 );
         this.DA.scheduleUpdate();
 

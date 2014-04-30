@@ -173,7 +173,7 @@ var ObstacleCreator = cc.Sprite.extend({
     multiArc: function(){
 
         for( var i = 0 ; i < this.arcNum ; i++ ){
-            var x = ( -this.arcNum + ( 2 * ( i + 1 ) - 1 ) );
+            var x = 2 * ( -this.arcNum + ( 2 * ( i + 1 ) - 1 ) );
             var y = this.arcV;
 
             this.obstacles[i].vx = x * Math.cos( this.arcAngle ) - y * Math.sin( this.arcAngle );
@@ -274,6 +274,25 @@ var ObstacleCreator = cc.Sprite.extend({
             
             this.obstacles[i].setPosition( this.getPosition() );
             this.obstacles[i].spiralOn( true, i, this.spiralNum );
+            this.obstacles[i].start();
+            this.obstacles[i].scheduleUpdate();
+        }
+    },
+
+    shootSpiral2: function( spiralNum, interval, repeat, delay, v ){
+
+        this.spiralNum = spiralNum;
+        this.spiralV = v;
+
+        this.schedule( this.spiral, interval, repeat, delay ); 
+    },
+
+    spiral2: function(){
+        for( var i = 0 ; i < this.spiralNum ; i++ ){
+            this.addToLayer( this.obstacles[i] );
+            
+            this.obstacles[i].setPosition( this.getPosition() );
+            this.obstacles[i].spiralOn( true, -i, this.spiralNum );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }

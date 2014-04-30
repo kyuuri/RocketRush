@@ -46,11 +46,8 @@ var ObstacleTest = cc.Sprite.extend({
         this.spiralNum = 0;
         this.angleLaunch = 0;
         this.i = 0;
-    },
 
-    setVxVy: function( vx, vy ){
-        this.vx = vx;
-        this.vy = vy;
+        this.unscheduleUpdate();
     },
 
     update: function( dt ) {
@@ -101,6 +98,7 @@ var ObstacleTest = cc.Sprite.extend({
     destroySelf: function(){
         this.spiralIsOn = false;
         this.removeFromParent();
+        this.unscheduleUpdate();
     },
 
     isOutOfScreen: function(){

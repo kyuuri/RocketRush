@@ -147,7 +147,7 @@ var Player = cc.Sprite.extend({
 
 });
 
-Player.MOVESPEED = 7.5;
+Player.MOVESPEED = 12;
 Player.MAX_OPACITY = 255;
 Player.MIN_OPACITY = 0;
 Player.SLOW_OPACITY = 90;

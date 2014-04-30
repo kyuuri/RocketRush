@@ -63,6 +63,6 @@ var LittleStar = cc.Sprite.extend({
 
 });
 
-LittleStar.GRAVITY = -15;
+LittleStar.GRAVITY = -30;
 LittleStar.SCALE = 0.15;
 LittleStar.NUM = 20;

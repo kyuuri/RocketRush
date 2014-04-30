@@ -50,4 +50,4 @@ var BGLayer = cc.Sprite.extend({
     
 });
 
-BGLayer.GRAVITY = -0.8;
+BGLayer.GRAVITY = -1.6;
