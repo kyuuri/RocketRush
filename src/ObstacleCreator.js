@@ -8,6 +8,10 @@ var ObstacleCreator = cc.Sprite.extend({
         this.gameLayer = gameLayer;
         this.scheduleUpdate();
 
+        this.soundShoot = "sounds/shoot.wav";
+        this.audioEngine = cc.AudioEngine.getInstance();
+        this.audioEngine.setEffectsVolume(0.2);
+
         //this.shootMultiArc( 5, 1, 5, 2, 8, -90);
         //this.shootCross( 7, 1, 5, 2, 8);
         //this.shootLockOn(1,5,2,8)
@@ -72,6 +76,7 @@ var ObstacleCreator = cc.Sprite.extend({
             this.unschedule( this.cross );
             this.unschedule( this.lockOn );
             this.unschedule( this.spiral );
+            this.unschedule( this.line );
         }
         else if( this.isCollide() && !this.gameLayer.player.blinking ){
             this.gameLayer.player.health -= 2;
@@ -149,6 +154,10 @@ var ObstacleCreator = cc.Sprite.extend({
         }
     },
 
+    playShootSound: function(){
+        this.audioEngine.playEffect( this.soundShoot , false);
+    },
+
     isCollide: function(){
 
         for( var i = 0 ; i < this.obstacles.length ; i++ ){
@@ -167,7 +176,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.arcV = v;
         this.arcAngle = arcAngle * Math.PI / 180 - Math.PI / 2;
 
-        this.schedule( this.multiArc, interval, repeat, delay ); 
+        this.schedule( this.multiArc, interval, repeat, delay );
     },
 
     multiArc: function(){
@@ -185,6 +194,7 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].setPosition( this.getPosition() );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
+            this.playShootSound();
         }
     },
 
@@ -211,6 +221,7 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].setPosition( this.getPosition() );
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
+            this.playShootSound();
         }
     },
 
@@ -258,6 +269,7 @@ var ObstacleCreator = cc.Sprite.extend({
         this.obstacles[0].setPosition( this.getPosition() );
         this.obstacles[0].start();
         this.obstacles[0].scheduleUpdate();
+        this.playShootSound();
     },
 
     shootSpiral: function( spiralNum, interval, repeat, delay, v ){
@@ -277,26 +289,27 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
+        this.playShootSound();
     },
 
-    shootSpiral2: function( spiralNum, interval, repeat, delay, v ){
+    // shootSpiral2: function( spiralNum, interval, repeat, delay, v ){
 
-        this.spiralNum = spiralNum;
-        this.spiralV = v;
+    //     this.spiralNum = spiralNum;
+    //     this.spiralV = v;
 
-        this.schedule( this.spiral, interval, repeat, delay ); 
-    },
+    //     this.schedule( this.spiral, interval, repeat, delay ); 
+    // },
 
-    spiral2: function(){
-        for( var i = 0 ; i < this.spiralNum ; i++ ){
-            this.addToLayer( this.obstacles[i] );
+    // spiral2: function(){
+    //     for( var i = 0 ; i < this.spiralNum ; i++ ){
+    //         this.addToLayer( this.obstacles[i] );
             
-            this.obstacles[i].setPosition( this.getPosition() );
-            this.obstacles[i].spiralOn( true, -i, this.spiralNum );
-            this.obstacles[i].start();
-            this.obstacles[i].scheduleUpdate();
-        }
-    },
+    //         this.obstacles[i].setPosition( this.getPosition() );
+    //         this.obstacles[i].spiralOn( true, -i, this.spiralNum );
+    //         this.obstacles[i].start();
+    //         this.obstacles[i].scheduleUpdate();
+    //     }
+    // },
 
     shootLine: function( interval, repeat, delay, v, angle ){
 
@@ -310,7 +323,7 @@ var ObstacleCreator = cc.Sprite.extend({
 
         for( var i = 0 ; i < 10 ; i++ ){
 
-            var x = this.lineV + i/2;
+            var x = this.lineV + i/2 * 5;
             var y = x;
 
             this.obstacles[i].vx = x * Math.cos( this.lineAngle ) - y * Math.sin( this.lineAngle );
@@ -323,6 +336,7 @@ var ObstacleCreator = cc.Sprite.extend({
             this.obstacles[i].start();
             this.obstacles[i].scheduleUpdate();
         }
+        this.playShootSound();
     },
 
 

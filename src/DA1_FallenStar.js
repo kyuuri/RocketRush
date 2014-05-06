@@ -4,6 +4,7 @@ var DA1_FallenStar = DropAlgorithm.extend({
         this.gameLayer = gameLayer;
 
         this.rateTime = 0;
+        this.isFinished = false;
 
         for( var i = 1 ; i <= 30 ; i++ ){
             this.obstacleCreators.push( new ObstacleCreator( this.gameLayer ) );
@@ -17,10 +18,7 @@ var DA1_FallenStar = DropAlgorithm.extend({
         this.firstSet();
         this.secondSet();
         this.thirdSet();
-
-        if( this.rdRunner == 30){
-            this.isFinished = true;
-        }
+        this.forthSet();
 
     },
 
@@ -56,6 +54,9 @@ var DA1_FallenStar = DropAlgorithm.extend({
             this.rateTime == 350 ){
             //interval, repeat, delay, v
             this.obstacleCreators[2].shootLockOn( 0, 0, 0, 20 );
+
+            //interval, repeat, delay, v, angle
+            //this.obstacleCreators[2].shootLine(0,0,0,16,-90);
         }
 
         if( this.rateTime == 175 || this.rateTime == 225 ||
@@ -157,17 +158,16 @@ var DA1_FallenStar = DropAlgorithm.extend({
     thirdSet: function(){
         if( this.rateTime == 850 ){
             this.third = true;
-            for ( var i = 20 ; i < 30; i++) {
-                this.obstacleCreators[i].obstacles[0] = new AdvancedObstacle1();
-                this.obstacleCreators[i].obstacles[1] = new AdvancedObstacle1();
-                this.obstacleCreators[i].obstacles[2] = new AdvancedObstacle1();
-                this.obstacleCreators[i].obstacles[3] = new AdvancedObstacle1();
+            for ( var i = 20 ; i < 30; i++ ){
+                for( var j = 0 ; j < 20 ; j++ ){
+                    this.obstacleCreators[i].obstacles[j] = new AdvancedObstacle1();
+                }
             }
         }
 
         if( this.third ){
-            if( this.rateTime % 25 == 0){
-                this.obstacleCreators[0].shootMultiArc( 1, 0, 0, 0, 24, -90 );
+            if( this.rateTime % 26 == 0){
+                this.obstacleCreators[0].shootMultiArc( 1, 0, 0, 0, 29, -90 );
             }
 
             if( this.rateTime % 31 == 0){
@@ -187,7 +187,7 @@ var DA1_FallenStar = DropAlgorithm.extend({
             }
 
             if( this.rateTime % 28 == 0){
-                this.obstacleCreators[5].shootMultiArc( 1, 0, 0, 0, 24, -90 );
+                this.obstacleCreators[5].shootMultiArc( 1, 0, 0, 0, 28, -90 );
             }
 
             if( this.rateTime % 30 == 0){
@@ -203,24 +203,14 @@ var DA1_FallenStar = DropAlgorithm.extend({
             }
 
             if( this.rateTime % 33 == 0){
-                this.obstacleCreators[9].shootMultiArc( 1, 0, 0, 0, 20, -90 );
+                this.obstacleCreators[9].shootMultiArc( 1, 0, 0, 0, 25, -90 );
             }
-
-            // if( this.rateTime % 100 == 0){
-            //     for( var i = 10 ; i < 20 ; i++ ){
-            //          this.obstacleCreators[i].shootLockOn( 0, 0, 0, -( i % 9 - 25 ) );
-            //     }
-            // }
 
             if( this.rateTime % 100 == 0){
                 this.obstacleCreators[25].shootLockOn( 0, 0, 0, 16 );
             }
 
             if( this.rateTime >= 1000 ){
-                // if( this.rateTime % 100 == 0){
-                //     this.obstacleCreators[23].shootMultiArc( 5, 0, 0, 0, 15, -90 );
-                //     this.obstacleCreators[27].shootMultiArc( 5, 0, 0, 0, 15, -90 );
-                // }
 
                 if( this.rateTime % 100 == 0){
                     for( var i = 10 ; i < 20 ; i++ ){
@@ -232,16 +222,75 @@ var DA1_FallenStar = DropAlgorithm.extend({
 
         if( this.rateTime == 1450){
             this.third = false;
-            this.rdRunner = 0;
+            //this.rdRunner = 0;
         }
 
-        if( this.rateTime >= 1450 && this.rdRunner < 30){
+        // if( this.rateTime >= 1450 && this.rdRunner < 30){
 
-            if( this.rateTime % 2 == 0 ){
-                this.obstacleCreators[ this.rdRunner ].removeFromParent();
-                this.obstacleCreators[ this.rdRunner ] = new ObstacleCreator( this.gameLayer );
-                this.rdRunner++;
-            }      
+        //     if( this.rateTime % 2 == 0 ){
+        //         this.obstacleCreators[ this.rdRunner ].removeFromParent();
+        //         this.obstacleCreators[ this.rdRunner ] = new ObstacleCreator( this.gameLayer );
+        //         this.rdRunner++;
+        //     }      
+        // }
+    },
+
+    forthSet: function(){
+
+        if( this.rateTime == 1500 || this.rateTime == 1625 ){
+            this.obstacleCreators[0].shootLine( 0, 0, 0, 6, -90 );
+            this.obstacleCreators[9].shootLine( 0, 0, 0, 6, -90 );
+        }
+
+        if( this.rateTime == 1525 || this.rateTime == 1650 ){
+            this.obstacleCreators[1].shootLine( 0, 0, 0, 6, -90 );
+            this.obstacleCreators[8].shootLine( 0, 0, 0, 6, -90 );
+        }
+
+        if( this.rateTime == 1550 || this.rateTime == 1675 ){
+            this.obstacleCreators[2].shootLine( 0, 0, 0, 6, -90 );
+            this.obstacleCreators[7].shootLine( 0, 0, 0, 6, -90 );
+        }
+
+        if( this.rateTime == 1575 || this.rateTime == 1700 ){
+            this.obstacleCreators[3].shootLine( 0, 0, 0, 6, -90 );
+            this.obstacleCreators[6].shootLine( 0, 0, 0, 6, -90 );
+        }
+
+        if( this.rateTime == 1600 || this.rateTime == 1725 ){
+            this.obstacleCreators[4].shootLine( 0, 0, 0, 6, -90 );
+            this.obstacleCreators[5].shootLine( 0, 0, 0, 6, -90 );
+        }
+
+        if( this.rateTime == 1775 ){
+            this.forth = true;
+            this.fthShootRunner = 0;
+            this.shooterTh = [ 0, 19, 1, 18, 2, 17, 3, 16, 4, 15, 5, 14,
+                               6, 13, 7, 12, 8, 11, 9, 10 ];
+        }
+
+        if( this.forth ){
+
+
+            if( this.rateTime % 5 == 0){
+                var sh = this.shooterTh[ this.fthShootRunner++ ]
+                this.obstacleCreators[ sh ].shootLockOn( 0, 0, 0, 16 );
+                if( this.fthShootRunner == 20){
+                     this.fthShootRunner = 0;
+                }
+            }
+
+            if( this.rateTime >= 2000 && this.rateTime % 50 == 0 ){
+                this.obstacleCreators[20].shootLockOn( 0, 0, 0, 20 );
+                this.obstacleCreators[23].shootLockOn( 0, 0, 0, 20 );
+                this.obstacleCreators[26].shootLockOn( 0, 0, 0, 20 );
+                this.obstacleCreators[29].shootLockOn( 0, 0, 0, 20 );
+            }
+
+            if( this.rateTime == 2200 ){
+                this.forth = false;
+                this.isFinished = true;
+            }
         }
     },
 

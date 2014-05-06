@@ -13,6 +13,10 @@ var GameLayer = cc.LayerColor.extend({
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
 
+        this.bgMusic = "sounds/overDriveAnother.mp3";
+        this.audioEngine = cc.AudioEngine.getInstance();
+        //this.audioEngine.playMusic( this.bgMusic, true );
+
         // this.obstacles = [];
         // for(var i = 0 ; i < 18 ; i++){
         //     //var type = Math.floor(Math.random() * 2); // now there are only 2 types
