@@ -21,7 +21,7 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreLabel.setPosition( new cc.Point( 520, 710 ) );
         this.score = 0;
 
-        this.skillSlowLabel = cc.LabelTTF.create( 'Slow Gauge', 'Arial', 18 );
+        this.skillSlowLabel = cc.LabelTTF.create( 'Energy', 'Arial', 18 );
         this.skillSlowLabel.setPosition( new cc.Point( 415, 685 ) );
         this.addChild( this.skillSlowLabel, 30 );
 
@@ -121,17 +121,12 @@ var GameLayer = cc.LayerColor.extend({
 
             this.player.start();
             this.bg.start();
-
-            // for(var i = 0 ; i < this.obstacles.length ; i++){
-            //     this.obstacles[i].start();
-            // }
-            
         }
         if(this.state == GameLayer.STATES.STARTED){
             this.player.startMove(e);
 
             if(e == 65 || e == 90){ // A or Z
-                if(this.skillSlow > 100){
+                if(this.skillSlow > 2){
                     this.activateSlow(true);
                 }
                 else{
@@ -284,29 +279,19 @@ var GameLayer = cc.LayerColor.extend({
    
     },
 
-    //explodeObstacle: function(ob){
-    //     var pos = ob.getPosition();
-    //     //ob.stop();
+});
 
 
-
-    //     this.ex = new Explosion();
-    //     this.ex.setScale(2.0);
-
-    //     this.ex.setPosition(pos.x-110,pos.y-110);
-
-    //     // 110 is for calibrating the explosion's position
-
-    //     this.exAction = this.ex.animateExplosion();
-    //     this.ex.runAction(this.exAction);
-    //     this.addChild( this.ex, 2 );
-   
-    // },
-
+var FirstScene = cc.Scene.extend({
+    onEnter: function(){
+        this._super();
+        var director = cc.Director.getInstance();
+        director.replaceScene(cc.TransitionFade.create( 1, new StartScene() ) );
+    }
 });
 
 var StartScene = cc.Scene.extend({
-    onEnter: function() {
+    ctor: function( diff, sound) {
         this._super();
         var layer = new GameLayer();
         layer.init();
@@ -314,6 +299,7 @@ var StartScene = cc.Scene.extend({
         //layer.setColor( new cc.Color3B(100,149,237) );
         this.addChild( layer );
     }
+
 });
 
 GameLayer.STATES = {
