@@ -32,6 +32,12 @@ var AdvancedObstacle1 = cc.Sprite.extend({
         this.sizeY = AdvancedObstacle1.INITIAL_SIZE_Y;
 
         this.started = false;
+
+        this.time = 0;
+        this.destroyed = false;
+
+        this.opacity = 255;
+        this.scale = AdvancedObstacle1.SCALE;
     },
 
     resetSelf: function(){
@@ -46,6 +52,16 @@ var AdvancedObstacle1 = cc.Sprite.extend({
         this.spiralNum = 0;
         this.angleLaunch = 0;
         this.i = 0;
+
+        this.time = 0;
+        this.destroyed = false;
+
+        this.opacity = 255;
+        this.scale = AdvancedObstacle1.SCALE;
+        this.setOpacity( this.opacity );
+        this.setScale( this.scale );
+
+        this.unscheduleUpdate();
     },
 
     update: function( dt ) {
@@ -61,11 +77,15 @@ var AdvancedObstacle1 = cc.Sprite.extend({
     },
 
     updateObstacle: function(){
+        this.time++;
         if( this.started ){
             var pos = this.getPosition();
 
-            if( this.isOutOfScreen() ){
-                this.destroySelf();
+            if( this.destroyed ){
+                this.opacity -= 15;
+                this.setOpacity( this.opacity );
+                this.scale += 0.14;
+                this.setScale( this.scale );
             }
             else{
                 if( this.spiralIsOn ){
@@ -81,9 +101,13 @@ var AdvancedObstacle1 = cc.Sprite.extend({
                     this.vx = x * Math.cos( rotateAngle ) - y * Math.sin( rotateAngle );
                     this.vy = y * Math.cos( rotateAngle ) + x * Math.sin( rotateAngle );
 
-                    this.angle += AdvancedObstacle1.ANGLE_RATE;
+                    this.angle += ObstacleTest.ANGLE_RATE;
                 }
                 this.setPosition( new cc.Point( pos.x + this.vx, pos.y + this.vy ) );
+
+                if( this.isOutOfScreen( pos ) ){
+                    this.destroySelf();
+                }
             }
             
         }
@@ -96,6 +120,12 @@ var AdvancedObstacle1 = cc.Sprite.extend({
     destroySelf: function(){
         this.spiralIsOn = false;
         this.removeFromParent();
+        this.unscheduleUpdate();
+    },
+
+    disappear: function(){
+        this.destroyed = true;
+        this.scheduleOnce( this.destroySelf, 0.2 );
     },
 
     isOutOfScreen: function(){

@@ -48,7 +48,7 @@ var Player = cc.Sprite.extend({
     updatePlayer: function(){
         if( this.started ){
             var pos = this.getPosition();
-            if( this.blinking && this.blinkingRate < 50){
+            if( this.blinking && this.blinkingRate < 35){
                 //can't move;
             }
             else{
@@ -73,7 +73,7 @@ var Player = cc.Sprite.extend({
         if( this.blinking ){  
             this.blinkingRate++;
         }
-        if( this.blinkingRate == 120 ){
+        if( this.blinkingRate == 100 ){
             this.setOpacity( this.opacity );
             this.blink( false );
             this.blinkingRate = 0;

@@ -71,6 +71,8 @@ var ObstacleCreator = cc.Sprite.extend({
 
     updateObstacleCreator: function(){
 
+        this.isCollideWithBomb();
+
         if( this.gameLayer.state == GameLayer.STATES.DEAD || this.gameLayer.state == GameLayer.STATES.END ){
             this.unschedule( this.multiArc );
             this.unschedule( this.cross );
@@ -167,13 +169,27 @@ var ObstacleCreator = cc.Sprite.extend({
     isCollide: function(){
 
         for( var i = 0 ; i < this.obstacles.length ; i++ ){
-            if( this.obstacles[i].closeTo( this.gameLayer.player ) ){
+            if( this.obstacles[i].closeTo( this.gameLayer.player )
+                && !this.obstacles[i].destroyed ){
+
                 if( this.gameLayer.state == GameLayer.STATES.STARTED ){
                     return true;
                 }
             }
         }
         return false;
+    },
+
+    isCollideWithBomb: function(){
+        if( this.gameLayer.bomb.active ){
+            for( var i = 0 ; i < this.obstacles.length ; i++ ){
+                if( this.gameLayer.bomb.closeTo( this.obstacles[i] )
+                    && !this.obstacles[i].destroyed ){
+                    
+                    this.obstacles[i].disappear();
+                }
+            }
+        }
     },
 
     shootMultiArc: function( arcNum, interval, repeat, delay, v, arcAngle ){

@@ -7,7 +7,8 @@ var Bomb = cc.Sprite.extend({
         this.scale = Bomb.INITIAL_SCALE;
         this.scaleAcc = Bomb.INITIAL_SCALEACC;
         this.active = Bomb.INITIAL_ACTIVE;
-        this.acc = 0.01;
+        this.acc = 0.02;
+        this.opacity = 255;
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -32,16 +33,22 @@ var Bomb = cc.Sprite.extend({
     	this.scaleAcc += this.acc;
     	this.scale += this.scaleAcc;
     	this.setScale(this.scale);
-    	this.angle += 30;
-    	this.spin(this.angle);
+    	this.angle += 60;
+    	this.spin( this.angle );
 
     	if(this.angle == 360){
     		this.angle = 0; // reset angle value
     	}
 
-    	if(this.scale > 5.0){
-    		this.removeFromParent();
+        if( this.scale > 3.0 ){
+            this.opacity -= 20;
+            this.setOpacity( this.opacity );
+        }
+
+    	if( this.scale > 4.5 ){
     		this.resetValue();
+            this.unscheduleUpdate();
+            this.removeFromParent();
     	}
     },
 
@@ -54,6 +61,8 @@ var Bomb = cc.Sprite.extend({
         this.scale = Bomb.INITIAL_SCALE;
         this.scaleAcc = Bomb.INITIAL_SCALEACC;
         this.active = Bomb.INITIAL_ACTIVE;
+        this.opacity = 255;
+        this.setOpacity( this.opacity );
     },
 
     closeTo: function( obj ) {
@@ -80,6 +89,6 @@ var Bomb = cc.Sprite.extend({
 
 Bomb.INITIAL_ANGEL = 0;
 Bomb.INITIAL_SCALE = 0.2;
-Bomb.INITIAL_SCALEACC = 0.02;
+Bomb.INITIAL_SCALEACC = 0.06;
 Bomb.INITIAL_ACTIVE = false;
 

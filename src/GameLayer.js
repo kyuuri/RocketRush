@@ -58,12 +58,6 @@ var GameLayer = cc.LayerColor.extend({
         //life
         this.initPlayerLife();
 
-        //test DropAlgo
-        //this.DA = new DA2_DarkSpiral( this );
-        //this.DA = new DA1_FallenStar( this );
-        //this.addChild( this.DA , 10 );
-        //this.DA.scheduleUpdate();
-
         this.DAs = [ new DA1_FallenStar( this ) ];
         this.runningDA = null;
 
@@ -145,7 +139,10 @@ var GameLayer = cc.LayerColor.extend({
                 }
             }
             if(e == 88){ // X
-                this.activateBomb();
+                if( this.skillSlow >= 200 ){
+                    this.skillSlow -= 200;
+                    this.activateBomb();
+                }
             }
         }
         //console.log(e);
@@ -160,26 +157,6 @@ var GameLayer = cc.LayerColor.extend({
             this.activateSlow(false);
         }
     },
-
-    // isCollide: function(){
-
-    //     for(var i = 0 ; i < this.obstacles.length ; i++){
-    //         if(this.obstacles[i].closeTo(this.player)){
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // },
-
-    // bombObstacle: function(){
-
-    //     for(var i = 0 ; i < this.obstacles.length ; i++){
-    //         if(this.bomb.closeTo(this.obstacles[i]) && this.bomb.active){
-    //             this.explodeObstacle(this.obstacles[i]);
-    //             this.obstacles[i].randomPosition();
-    //         }
-    //     }
-    // },
 
     activateSlow: function( isSlow ){
         this.slow = isSlow;
@@ -234,7 +211,9 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     updateGameLayer: function(){
-        if(this.state == GameLayer.STATES.STARTED){
+        if( this.state == GameLayer.STATES.STARTED
+            && this.state != GameLayer.STATES.DEAD ){
+
             this.scoreLabel.setString( ++this.score );
 
             if( this.runningDA == null){
@@ -254,7 +233,10 @@ var GameLayer = cc.LayerColor.extend({
         }
 
         if(this.state == GameLayer.STATES.DEAD){
-            
+
+            this.runningDA.unscheduleUpdate();
+            this.runningDA.stop();
+
             this.player.stop();
             this.bg.stop();
 
