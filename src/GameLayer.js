@@ -138,9 +138,9 @@ var GameLayer = cc.LayerColor.extend({
                     this.activateSlow(false);
                 }
             }
-            if(e == 88){ // X
-                if( this.skillSlow >= 200 ){
-                    this.skillSlow -= 200;
+            if(e == 88 && !this.bomb.active ){ // X
+                if( this.skillSlow >= 300 ){
+                    this.skillSlow -= 300;
                     this.activateBomb();
                 }
             }

@@ -7,6 +7,7 @@ var Bomb = cc.Sprite.extend({
         this.scale = Bomb.INITIAL_SCALE;
         this.scaleAcc = Bomb.INITIAL_SCALEACC;
         this.active = Bomb.INITIAL_ACTIVE;
+
         this.acc = 0.02;
         this.opacity = 255;
 
@@ -45,7 +46,7 @@ var Bomb = cc.Sprite.extend({
             this.setOpacity( this.opacity );
         }
 
-    	if( this.scale > 4.5 ){
+    	if( this.scale > 5.0 ){
     		this.resetValue();
             this.unscheduleUpdate();
             this.removeFromParent();
