@@ -82,12 +82,40 @@ var GameLayer = cc.LayerColor.extend({
             this.lifeSp.push( tempSp );
         }
 
-        for( var i = 0 ; i < 5 ; i++ ){
+        this.addLife( 0, 5 );
+
+    },
+
+    addLife: function( from, to ){
+        for( var i = from ; i < to ; i++ ){
             var x = this.arrLife[i];
             this.lifeSp[i].setPosition( new cc.Point( x, 12 ) );
             this.addChild( this.lifeSp[i], 30 );
         }
+    },
 
+    addScore: function( score ){
+        this.addScore = cc.LabelTTF.create( '+' + score , 'Arial', 22 );
+        this.addScore.setPosition( new cc.Point( 520, 715 ) );
+
+        this.addChild( this.addScore, 35 );
+
+        var moveUp = cc.MoveTo.create( 1 , new cc.Point( 520, 735 ) );
+        this.addScore.runAction( moveUp );
+
+        this.score += score;
+
+        this.scheduleOnce( this.addscoreOpacDown , 1.2 );
+        this.scheduleOnce( this.removeAddScore , 1.5 );
+
+    },
+
+    addscoreOpacDown: function(){
+        this.addScore.setOpacity(122);
+    },
+
+    removeAddScore: function(){
+        this.removeChild( this.addScore );
     },
 
     onKeyDown: function(e) {
@@ -200,12 +228,6 @@ var GameLayer = cc.LayerColor.extend({
     updateGameLayer: function(){
         if(this.state == GameLayer.STATES.STARTED){
             this.scoreLabel.setString( ++this.score );
-
-            var life = this.player.health / 2 ;
-
-            if( life < 5 ){
-                this.removeChild( this.lifeSp[life] );
-            }
         }
 
         if(this.state == GameLayer.STATES.DEAD){

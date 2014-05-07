@@ -28,7 +28,24 @@ var DA1_FallenStar = DropAlgorithm.extend({
             this.gameLayer.addChild( this.cutin, 100 );
             this.cutin.setPosition( new cc.p( screenWidth + 420, screenHeight / 2 ) );
             this.cutin.play();
+
+            this.addLife();
+            this.gameLayer.addScore(3000);
         }
+
+    },
+
+    addLife: function(){
+        var hpFrom = this.gameLayer.player.health/2;
+
+        this.gameLayer.player.health += 4;
+        if( this.gameLayer.player.health > Player.MAXHP ){
+            this.gameLayer.player.health = Player.MAXHP;
+        }
+
+        var hpTo = this.gameLayer.player.health/2;
+
+        this.gameLayer.addLife( hpFrom, hpTo );
 
     },
 

@@ -10,7 +10,7 @@ var Player = cc.Sprite.extend({
         this.slowRate = 0;
         this.opacity = Player.MAX_OPACITY;
 
-        this.health = 10;
+        this.health = Player.MAXHP;
         this.blinking = false;
         this.blinkingRate = 0;
         this.blinkDown = false;
@@ -151,6 +151,7 @@ Player.MOVESPEED = 12;
 Player.MAX_OPACITY = 255;
 Player.MIN_OPACITY = 0;
 Player.SLOW_OPACITY = 90;
+Player.MAXHP = 10;
 
 Player.ARROWKEY = {
     UP: 38,
