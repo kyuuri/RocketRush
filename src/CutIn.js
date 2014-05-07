@@ -12,7 +12,7 @@ var CutIn = cc.Sprite.extend({
 
         if( pos.x >= 300 ) this. vx = -50;
         else if( pos.x >= 290 ) this.vx = -3;
-        else if( pos.x >= 280 ) this.vx = -0.5;
+        else if( pos.x >= 280 ) this.vx = -0.2;
         else if( pos.x >= 270 ) this.vx = -3;
         else this.vx = -50;
 

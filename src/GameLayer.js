@@ -60,9 +60,12 @@ var GameLayer = cc.LayerColor.extend({
 
         //test DropAlgo
         //this.DA = new DA2_DarkSpiral( this );
-        this.DA = new DA1_FallenStar( this );
-        this.addChild( this.DA , 10 );
-        this.DA.scheduleUpdate();
+        //this.DA = new DA1_FallenStar( this );
+        //this.addChild( this.DA , 10 );
+        //this.DA.scheduleUpdate();
+
+        this.DAs = [ new DA1_FallenStar( this ) ];
+        this.runningDA = null;
 
         return true;
     },
@@ -184,7 +187,7 @@ var GameLayer = cc.LayerColor.extend({
         this.bg.activateSlow( this.slow );
         this.player.activateSlow( this.slow );
         this.bomb.activateSlow( this.slow );
-        this.DA.activateSlow( this.slow );
+        this.runningDA.activateSlow( this.slow );
 
         // for(var i = 0 ; i < this.obstacles.length ; i++){
         //     this.obstacles[i].activateSlow(this.slow);
@@ -198,6 +201,11 @@ var GameLayer = cc.LayerColor.extend({
         this.bomb.activeBomb();
         this.bomb.scheduleUpdate();
 
+    },
+
+    getRandomDA: function(){
+        var num = Math.floor( Math.random() * this.DAs.length );
+        return this.DAs[ num ];
     },
 
     update: function() {
@@ -228,21 +236,30 @@ var GameLayer = cc.LayerColor.extend({
     updateGameLayer: function(){
         if(this.state == GameLayer.STATES.STARTED){
             this.scoreLabel.setString( ++this.score );
+
+            if( this.runningDA == null){
+                this.runningDA = this.getRandomDA();
+                this.addChild( this.runningDA , 10 );
+                this.runningDA.scheduleUpdate();
+                this.runningDA.start();
+            }
+
+            if( this.runningDA.isFinished ){
+                this.runningDA.resetSelf();
+                this.removeChild( this.runningDA );
+                this.runningDA.unscheduleUpdate();
+                this.runningDA.stop();
+                this.runningDA = null;
+            }
         }
 
         if(this.state == GameLayer.STATES.DEAD){
-
             
             this.player.stop();
             this.bg.stop();
 
-            // for(var i = 0 ; i < this.obstacles.length ; i++){
-            //     this.obstacles[i].stop();
-            // }
-
             this.removeChild(this.player);
             this.explodePlayer();
-
         }
 
     },

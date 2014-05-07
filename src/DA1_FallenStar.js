@@ -3,8 +3,7 @@ var DA1_FallenStar = DropAlgorithm.extend({
         this._super();
         this.gameLayer = gameLayer;
 
-        this.rateTime = 0;
-        this.isFinished = false;
+        this.rateTime = -100;
 
         for( var i = 1 ; i <= 30 ; i++ ){
             this.obstacleCreators.push( new ObstacleCreator( this.gameLayer ) );
@@ -13,6 +12,11 @@ var DA1_FallenStar = DropAlgorithm.extend({
     },
 
     updateDA: function(){
+
+        if( this.rateTime == 0 ){
+            this.playCutInName();
+        }
+
         this.rateTime++;
 
         this.firstSet();
@@ -21,7 +25,6 @@ var DA1_FallenStar = DropAlgorithm.extend({
         this.forthSet();
 
         if( this.rateTime == 2300){
-            this.isFinished = true;
 
             this.cutin = new CutIn();
             this.cutin.initWithFile( 'images/complete.png' );
@@ -33,6 +36,18 @@ var DA1_FallenStar = DropAlgorithm.extend({
             this.gameLayer.addScore(3000);
         }
 
+        if( this.rateTime == 2400 ){
+            this.isFinished = true;
+        }
+
+    },
+
+    playCutInName: function(){
+        this.cutin = new CutIn();
+        this.cutin.initWithFile( 'images/fallenStar.png' );
+        this.gameLayer.addChild( this.cutin, 100 );
+        this.cutin.setPosition( new cc.p( screenWidth + 420, screenHeight / 2 ) );
+        this.cutin.play();
     },
 
     addLife: function(){

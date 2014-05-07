@@ -8,7 +8,7 @@ var DropAlgorithm = cc.Sprite.extend({
 
         this.isFinished = false;
 
-        this.rateTime = 0;
+        this.rateTime = -100;
 
         this.obstacleCreators = [];
 
@@ -16,15 +16,18 @@ var DropAlgorithm = cc.Sprite.extend({
 
     update: function( dt ){
 
-        if( !this.isSlow ){
-            this.updateDA();
-        }
-        else{
-            if( this.slowRate % 2 == 0 ){
+        if( this.started ){
+
+            if( !this.isSlow ){
                 this.updateDA();
             }
+            else{
+                if( this.slowRate % 2 == 0 ){
+                    this.updateDA();
+                }
+            }
+            this.slowRate++;
         }
-        this.slowRate++;
     },
 
     updateDA: function(){
@@ -46,5 +49,15 @@ var DropAlgorithm = cc.Sprite.extend({
             this.obstacleCreators[i].activateSlow( isSlow );
         }
     },
+
+    resetSelf: function(){
+        this.isSlow = false;
+        this.slowRate = 0;
+        this.started = false;
+
+        this.isFinished = false;
+
+        this.rateTime = -100;
+    }
 
 });
