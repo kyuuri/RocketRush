@@ -17,24 +17,6 @@ var GameLayer = cc.LayerColor.extend({
         this.audioEngine = cc.AudioEngine.getInstance();
         //this.audioEngine.playMusic( this.bgMusic, true );
 
-        // this.obstacles = [];
-        // for(var i = 0 ; i < 18 ; i++){
-        //     //var type = Math.floor(Math.random() * 2); // now there are only 2 types
-
-        //     if( i <= 7){
-        //         this.obstacles.push(new AdvancedObstacle1());
-        //     }
-        //     else{
-        //         this.obstacles.push(new Obstacle());
-        //     }
-        // }
-
-        // for(var i = 0 ; i < this.obstacles.length ; i++){
-        //     this.obstacles[i].randomPosition();
-        //     this.addChild(this.obstacles[i] , 1);
-        //     this.obstacles[i].scheduleUpdate();
-        // }
-
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 35 );
         this.scoreLabel.setPosition( new cc.Point( 520, 710 ) );
         this.score = 0;
@@ -73,6 +55,9 @@ var GameLayer = cc.LayerColor.extend({
         //this.addChild(this.obCre, 10);
         //this.obCre.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 + 200) );
 
+        //life
+        this.initPlayerLife();
+
         //test DropAlgo
         //this.DA = new DA2_DarkSpiral( this );
         this.DA = new DA1_FallenStar( this );
@@ -80,6 +65,29 @@ var GameLayer = cc.LayerColor.extend({
         this.DA.scheduleUpdate();
 
         return true;
+    },
+
+    initPlayerLife: function(){
+        this.lifeLabel = cc.LabelTTF.create( 'Life : ', 'Arial', 18 );
+        this.lifeLabel.setPosition( new cc.Point( 435, 10 ) );
+        this.addChild( this.lifeLabel, 30 );
+
+        this.arrLife = [ 470, 490, 510, 530, 550 ];
+        this.lifeSp = [];
+
+        for( var i = 0 ; i < 5 ; i++ ){
+            var tempSp = new cc.Sprite();
+            tempSp.initWithFile( 'images/ship1.png' );
+            tempSp.setScale( 0.2 );
+            this.lifeSp.push( tempSp );
+        }
+
+        for( var i = 0 ; i < 5 ; i++ ){
+            var x = this.arrLife[i];
+            this.lifeSp[i].setPosition( new cc.Point( x, 12 ) );
+            this.addChild( this.lifeSp[i], 30 );
+        }
+
     },
 
     onKeyDown: function(e) {
@@ -191,11 +199,14 @@ var GameLayer = cc.LayerColor.extend({
 
     updateGameLayer: function(){
         if(this.state == GameLayer.STATES.STARTED){
-                // if(this.isCollide()){
-                //     this.state = GameLayer.STATES.DEAD;
-                // }
-                this.scoreLabel.setString( ++this.score );
+            this.scoreLabel.setString( ++this.score );
+
+            var life = this.player.health / 2 ;
+
+            if( life < 5 ){
+                this.removeChild( this.lifeSp[life] );
             }
+        }
 
         if(this.state == GameLayer.STATES.DEAD){
 

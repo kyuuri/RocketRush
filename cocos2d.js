@@ -25,6 +25,7 @@
             'src/littleStar.js',
             'src/ObstacleCreator.js',
             'src/ObstacleTest.js',
+            'src/CutIn.js',
             'src/DropAlgorithm.js',
             'src/DA1_FallenStar.js',
             'src/DA2_DarkSpiral.js',

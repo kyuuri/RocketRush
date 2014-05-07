@@ -5,6 +5,7 @@ var LittleStar = cc.Sprite.extend({
 
         this.setScale( LittleStar.SCALE );
         this.gravity = -5 + Math.floor( Math.random() * LittleStar.GRAVITY );
+        this.gravityX = 0;
 
         this.isSlow = false;
         this.slowRate = 0;
@@ -28,11 +29,11 @@ var LittleStar = cc.Sprite.extend({
         if( this.started ){
             var pos = this.getPosition();
 
-            if(pos.y < -50){
+            if( pos.y < -50 || pos.x > screenWidth + 10 ){
                 this.randomPosition();
             }
             else{
-                this.setPosition( new cc.Point( pos.x, pos.y + this.gravity ) );
+                this.setPosition( new cc.Point( pos.x + this.gravityX, pos.y + this.gravity ) );
             }
         }
     },

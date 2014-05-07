@@ -20,7 +20,9 @@ var g_resources = [
     {src: 'images/powerRing.png' },
     {src: 'images/spaceBg.png' },
     {src: 'images/littleStar.png' },
-    {src: 'images/obstacleCreatorLight.png' }, 
+    {src: 'images/obstacleCreatorLight.png' },
+    {src: 'images/finishingMove.png' }, 
+    {src: 'images/complete.png' }, 
  
     //plist
  

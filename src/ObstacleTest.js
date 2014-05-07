@@ -32,6 +32,7 @@ var ObstacleTest = cc.Sprite.extend({
         this.sizeY = ObstacleTest.INITIAL_SIZE_Y;
 
         this.started = false;
+        this.time = 0;
     },
 
     resetSelf: function(){     
@@ -47,6 +48,8 @@ var ObstacleTest = cc.Sprite.extend({
         this.angleLaunch = 0;
         this.i = 0;
 
+        this.time = 0;
+
         this.unscheduleUpdate();
     },
 
@@ -60,32 +63,36 @@ var ObstacleTest = cc.Sprite.extend({
             }
         }
         this.slowRate++;
+        if(this.time >= 300){
+            this.destroySelf();
+        }
     },
 
     updateObstacle: function(){
+        this.time++;
         if( this.started ){
             var pos = this.getPosition();
 
-            if( this.isOutOfScreen() ){
-                this.destroySelf();
+
+            if( this.spiralIsOn ){
+                this.theta = this.angle * Math.PI / 180;
+                this.r = this.a * Math.pow( Math.E, this.b * this.theta );
+
+                //initial axis
+                var x = this.r * Math.cos( this.theta );
+                var y = this.r * Math.sin( this.theta );
+
+                //rotate axis
+                var rotateAngle = this.angleLaunch * ( this.i + 1 );
+                this.vx = x * Math.cos( rotateAngle ) - y * Math.sin( rotateAngle );
+                this.vy = y * Math.cos( rotateAngle ) + x * Math.sin( rotateAngle );
+
+                this.angle += ObstacleTest.ANGLE_RATE;
             }
-            else{
-                if( this.spiralIsOn ){
-                    this.theta = this.angle * Math.PI / 180;
-                    this.r = this.a * Math.pow( Math.E, this.b * this.theta );
+            this.setPosition( new cc.Point( pos.x + this.vx, pos.y + this.vy ) );
 
-                    //initial axis
-                    var x = this.r * Math.cos( this.theta );
-                    var y = this.r * Math.sin( this.theta );
-
-                    //rotate axis
-                    var rotateAngle = this.angleLaunch * ( this.i + 1 );
-                    this.vx = x * Math.cos( rotateAngle ) - y * Math.sin( rotateAngle );
-                    this.vy = y * Math.cos( rotateAngle ) + x * Math.sin( rotateAngle );
-
-                    this.angle += ObstacleTest.ANGLE_RATE;
-                }
-                this.setPosition( new cc.Point( pos.x + this.vx, pos.y + this.vy ) );
+            if( this.isOutOfScreen( pos ) ){
+                this.destroySelf();
             }
             
         }
@@ -101,10 +108,9 @@ var ObstacleTest = cc.Sprite.extend({
         this.unscheduleUpdate();
     },
 
-    isOutOfScreen: function(){
-        var pos = this.getPosition();
-        var outX = ( pos.x < -10 ) || ( pos.x > screenWidth + 10 );
-        var outY = ( pos.y < -10 ) || ( pos.y > screenHeight + 10 );
+    isOutOfScreen: function( pos ){
+        var outX = ( pos.x < 0 ) || ( pos.x > screenWidth + 10 );
+        var outY = ( pos.y < 0 ) || ( pos.y > screenHeight + 10 );
 
         return outX && outY;
     },

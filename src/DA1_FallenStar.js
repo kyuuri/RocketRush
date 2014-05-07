@@ -20,6 +20,16 @@ var DA1_FallenStar = DropAlgorithm.extend({
         this.thirdSet();
         this.forthSet();
 
+        if( this.rateTime == 2300){
+            this.isFinished = true;
+
+            this.cutin = new CutIn();
+            this.cutin.initWithFile( 'images/complete.png' );
+            this.gameLayer.addChild( this.cutin, 100 );
+            this.cutin.setPosition( new cc.p( screenWidth + 420, screenHeight / 2 ) );
+            this.cutin.play();
+        }
+
     },
 
     firstSet: function(){
@@ -222,17 +232,7 @@ var DA1_FallenStar = DropAlgorithm.extend({
 
         if( this.rateTime == 1450){
             this.third = false;
-            //this.rdRunner = 0;
         }
-
-        // if( this.rateTime >= 1450 && this.rdRunner < 30){
-
-        //     if( this.rateTime % 2 == 0 ){
-        //         this.obstacleCreators[ this.rdRunner ].removeFromParent();
-        //         this.obstacleCreators[ this.rdRunner ] = new ObstacleCreator( this.gameLayer );
-        //         this.rdRunner++;
-        //     }      
-        // }
     },
 
     forthSet: function(){
@@ -267,6 +267,11 @@ var DA1_FallenStar = DropAlgorithm.extend({
             this.fthShootRunner = 0;
             this.shooterTh = [ 0, 19, 1, 18, 2, 17, 3, 16, 4, 15, 5, 14,
                                6, 13, 7, 12, 8, 11, 9, 10 ];
+
+            this.cutin = new CutIn();
+            this.gameLayer.addChild( this.cutin, 100 );
+            this.cutin.setPosition( new cc.p( screenWidth + 420, screenHeight / 2 ) );
+            this.cutin.play();
         }
 
         if( this.forth ){
@@ -289,10 +294,21 @@ var DA1_FallenStar = DropAlgorithm.extend({
 
             if( this.rateTime == 2200 ){
                 this.forth = false;
-                this.isFinished = true;
+                this.forthRun = 0;
             }
+
+        }
+
+        if( this.rateTime >= 2250 && this.forthRun < 30){
+
+            if( this.rateTime % 2 == 0 ){
+                this.obstacleCreators[ this.forthRun ].removeFromParent();
+                this.obstacleCreators[ this.forthRun ] = new ObstacleCreator( this.gameLayer );
+                this.forthRun++;
+            }      
         }
     },
+
 
 
 

@@ -81,6 +81,12 @@ var ObstacleCreator = cc.Sprite.extend({
         else if( this.isCollide() && !this.gameLayer.player.blinking ){
             this.gameLayer.player.health -= 2;
 
+            var life = this.gameLayer.player.health / 2 ;
+
+            if( life < 5 ){
+                this.gameLayer.removeChild( this.gameLayer.lifeSp[life] );
+            }
+
             if( this.gameLayer.player.health > 0){
                 this.gameLayer.player.blink( true );
                 this.gameLayer.damagePlayer();
