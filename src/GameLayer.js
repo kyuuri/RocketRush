@@ -53,7 +53,7 @@ var GameLayer = cc.LayerColor.extend({
         //life
         this.initPlayerLife();
 
-        this.DAs = [ new DA1_FallenStar( this ), new DA2_DarkSpiral( this ) ];
+        this.DAs = [ new DA1_FallenStar( this ), new DA2_DarkSpiral( this ), new DA3_RisingStar( this ) ];
         this.DAused = [];
         this.initDAused();
         this.runningDA = null;

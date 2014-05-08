@@ -26,7 +26,9 @@ var g_resources = [
     {src: 'images/firstPage.png' },
     {src: 'images/clickToPlay.png' },
     {src: 'images/howToPlay.png' },
-    {src: 'images/deadSpiral.png' }, 
+    {src: 'images/deadSpiral.png' },
+    {src: 'images/fallenStar.png' }, 
+    {src: 'images/risingStar.png' }, 
     {src: 'images/skill1bar.png' },
     {src: 'images/skill1barGray.png' },
  
