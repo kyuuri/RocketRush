@@ -134,8 +134,8 @@ var GameLayer = cc.LayerColor.extend({
                 }
             }
             if(e == 88 && !this.bomb.active ){ // X
-                if( this.skillSlow >= 300 ){
-                    this.skillSlow -= 300;
+                if( this.skillSlow >= 400 ){
+                    this.skillSlow -= 400;
                     this.activateBomb();
                 }
             }
@@ -278,27 +278,6 @@ var GameLayer = cc.LayerColor.extend({
         this.state = GameLayer.STATES.END;
    
     },
-
-});
-
-
-var FirstScene = cc.Scene.extend({
-    onEnter: function(){
-        this._super();
-        var director = cc.Director.getInstance();
-        director.replaceScene(cc.TransitionFade.create( 1, new StartScene() ) );
-    }
-});
-
-var StartScene = cc.Scene.extend({
-    ctor: function( diff, sound) {
-        this._super();
-        var layer = new GameLayer();
-        layer.init();
-
-        //layer.setColor( new cc.Color3B(100,149,237) );
-        this.addChild( layer );
-    }
 
 });
 

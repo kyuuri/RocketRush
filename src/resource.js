@@ -23,6 +23,9 @@ var g_resources = [
     {src: 'images/obstacleCreatorLight.png' },
     {src: 'images/finishingMove.png' }, 
     {src: 'images/complete.png' }, 
+    {src: 'images/firstPage.png' },
+    {src: 'images/clickToPlay.png' },
+    {src: 'images/howToPlay.png' }, 
  
     //plist
  
