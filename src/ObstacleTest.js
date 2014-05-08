@@ -13,7 +13,7 @@ var ObstacleTest = cc.Sprite.extend({
         this.angle = 0;
         this.theta = 0;
         this.a = 2;
-        this.b = 0.4;
+        this.b = 0.6;
         this.r = 1;
         this.angleRate = ObstacleTest.ANGLE_RATE;
         // r = ae^(b*theta)
@@ -44,7 +44,7 @@ var ObstacleTest = cc.Sprite.extend({
         this.angle = 0;
         this.theta = 0;
         this.a = 2;
-        this.b = 0.4;
+        this.b = 0.6;
         this.r = 1;
         this.angleRate = ObstacleTest.ANGLE_RATE;
 

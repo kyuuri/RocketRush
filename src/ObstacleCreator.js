@@ -314,25 +314,6 @@ var ObstacleCreator = cc.Sprite.extend({
         this.playShootSound();
     },
 
-    // shootSpiral2: function( spiralNum, interval, repeat, delay, v ){
-
-    //     this.spiralNum = spiralNum;
-    //     this.spiralV = v;
-
-    //     this.schedule( this.spiral, interval, repeat, delay ); 
-    // },
-
-    // spiral2: function(){
-    //     for( var i = 0 ; i < this.spiralNum ; i++ ){
-    //         this.addToLayer( this.obstacles[i] );
-            
-    //         this.obstacles[i].setPosition( this.getPosition() );
-    //         this.obstacles[i].spiralOn( true, -i, this.spiralNum );
-    //         this.obstacles[i].start();
-    //         this.obstacles[i].scheduleUpdate();
-    //     }
-    // },
-
     shootLine: function( interval, repeat, delay, v, angle ){
 
         this.lineV = v;

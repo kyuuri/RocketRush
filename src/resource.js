@@ -25,7 +25,10 @@ var g_resources = [
     {src: 'images/complete.png' }, 
     {src: 'images/firstPage.png' },
     {src: 'images/clickToPlay.png' },
-    {src: 'images/howToPlay.png' }, 
+    {src: 'images/howToPlay.png' },
+    {src: 'images/deadSpiral.png' }, 
+    {src: 'images/skill1bar.png' },
+    {src: 'images/skill1barGray.png' },
  
     //plist
  

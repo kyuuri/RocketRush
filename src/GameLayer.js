@@ -13,23 +13,19 @@ var GameLayer = cc.LayerColor.extend({
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
 
-        this.bgMusic = "sounds/overDriveAnother.mp3";
+        this.bgMusic = "sounds/overDrive.mp3";
         this.audioEngine = cc.AudioEngine.getInstance();
         //this.audioEngine.playMusic( this.bgMusic, true );
 
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 35 );
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Tempus Sans ITC', 35 );
         this.scoreLabel.setPosition( new cc.Point( 520, 710 ) );
         this.score = 0;
 
-        this.skillSlowLabel = cc.LabelTTF.create( 'Energy', 'Arial', 18 );
-        this.skillSlowLabel.setPosition( new cc.Point( 415, 685 ) );
+        this.skillSlowLabel = cc.LabelTTF.create( 'Energy', 'Tempus Sans ITC', 19 );
+        this.skillSlowLabel.setPosition( new cc.Point( 47, 50 ) ); // 570 760
         this.addChild( this.skillSlowLabel, 30 );
 
         this.skillSlow = 1000;
-
-        //temp label
-        this.skillLabel = cc.LabelTTF.create( 'press Z to activate slow', 'Arial', 18 );
-        this.skillLabel.setPosition( new cc.Point( 430, 745 ) );
 
         //test bomb
         this.bomb = new Bomb();
@@ -37,7 +33,6 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.player, 15 );
 
         this.addChild( this.scoreLabel, 30 );
-        this.addChild( this.skillLabel, 30 );
         this.player.scheduleUpdate();
         this.scheduleUpdate();
 
@@ -47,8 +42,8 @@ var GameLayer = cc.LayerColor.extend({
 
         //skill1 bar
         this.skillBar = new SkillBar();
-        this.skillBar.setPosition( new cc.Point( 455, 660 ) );
-        this.addChild( this.skillBar , 13);
+        this.skillBar.setPosition( new cc.Point( 115, 25 ) );
+        this.addChild( this.skillBar , 30);
 
         //test ObCreator
         //this.obCre = new ObstacleCreator( this );
@@ -58,24 +53,28 @@ var GameLayer = cc.LayerColor.extend({
         //life
         this.initPlayerLife();
 
-        this.DAs = [ new DA1_FallenStar( this ) ];
+        this.DAs = [ new DA1_FallenStar( this ), new DA2_DarkSpiral( this ) ];
         this.runningDA = null;
+        // this.runningDA = new DA2_DarkSpiral( this );
+        // this.addChild( this.runningDA , 10 );
+        // this.runningDA.scheduleUpdate();
+        // this.runningDA.start();
 
         return true;
     },
 
     initPlayerLife: function(){
-        this.lifeLabel = cc.LabelTTF.create( 'Life : ', 'Arial', 18 );
-        this.lifeLabel.setPosition( new cc.Point( 435, 10 ) );
+        this.lifeLabel = cc.LabelTTF.create( 'Life : ', 'Tempus Sans ITC', 20 );
+        this.lifeLabel.setPosition( new cc.Point( 390, 18 ) );
         this.addChild( this.lifeLabel, 30 );
 
-        this.arrLife = [ 470, 490, 510, 530, 550 ];
+        this.arrLife = [ 430, 460, 490, 520, 550 ];
         this.lifeSp = [];
 
         for( var i = 0 ; i < 5 ; i++ ){
             var tempSp = new cc.Sprite();
             tempSp.initWithFile( 'images/ship1.png' );
-            tempSp.setScale( 0.2 );
+            tempSp.setScale( 0.3 );
             this.lifeSp.push( tempSp );
         }
 
@@ -86,13 +85,13 @@ var GameLayer = cc.LayerColor.extend({
     addLife: function( from, to ){
         for( var i = from ; i < to ; i++ ){
             var x = this.arrLife[i];
-            this.lifeSp[i].setPosition( new cc.Point( x, 12 ) );
+            this.lifeSp[i].setPosition( new cc.Point( x, 20 ) );
             this.addChild( this.lifeSp[i], 30 );
         }
     },
 
     addScore: function( score ){
-        this.addScore = cc.LabelTTF.create( '+' + score , 'Arial', 22 );
+        this.addScore = cc.LabelTTF.create( '+' + score , 'Tempus Sans ITC', 30 );
         this.addScore.setPosition( new cc.Point( 520, 715 ) );
 
         this.addChild( this.addScore, 35 );
@@ -116,31 +115,34 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function(e) {
-        if(this.state == GameLayer.STATES.FRONT){
+        if( this.state == GameLayer.STATES.FRONT ){
             this.state = GameLayer.STATES.STARTED;
 
             this.player.start();
             this.bg.start();
         }
-        if(this.state == GameLayer.STATES.STARTED){
-            this.player.startMove(e);
+        if( this.state == GameLayer.STATES.STARTED ){
+            this.player.startMove( e );
 
             if(e == 65 || e == 90){ // A or Z
-                if(this.skillSlow > 2){
-                    this.activateSlow(true);
+                if( this.skillSlow > 2 ){
+                    this.activateSlow( true );
                 }
                 else{
-                    this.activateSlow(false);
+                    this.activateSlow( false );
                 }
             }
-            if(e == 88 && !this.bomb.active ){ // X
+            if( e == 88 && !this.bomb.active ){ // X
                 if( this.skillSlow >= 400 ){
                     this.skillSlow -= 400;
                     this.activateBomb();
                 }
             }
         }
-        //console.log(e);
+        if( this.state == GameLayer.STATES.END ){
+            var director = cc.Director.getInstance();
+            director.replaceScene(cc.TransitionFade.create( 1, new StartScene() ) );
+        }
     },
 
     onKeyUp: function(e){
@@ -200,9 +202,7 @@ var GameLayer = cc.LayerColor.extend({
             }
             this.slowRate++;
             this.skillBar.setBar( this.skillSlow / 1000 );
-            //this.skillSlowLabel.setString( this.skillSlow );
         }
-        //this.bombObstacle();
     },
 
     updateGameLayer: function(){
@@ -270,10 +270,17 @@ var GameLayer = cc.LayerColor.extend({
         this.ex.runAction(this.exAction);
         this.addChild( this.ex, 15 );
 
-        this.endLabel = cc.LabelTTF.create( 'กากงะ T^T', 'Arial', 100 );
-        this.endLabel.setPosition( new cc.Point( 300, 400 ) );
-        //this.endLabel.setColor(255,255,255);
-        this.addChild( this.endLabel,100 );
+        var endLabel = cc.LabelTTF.create( 'Kakkk!', 'Tempus Sans ITC', 100 );
+        endLabel.setPosition( new cc.Point( screenWidth / 2 , screenHeight / 2 + 100 ) );
+        this.addChild( endLabel,100 );
+
+        var sLabel = cc.LabelTTF.create( 'Your score is ' + this.score, 'Tempus Sans ITC', 50 );
+        sLabel.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
+        this.addChild( sLabel,100 );
+
+        var reLabel = cc.LabelTTF.create( 'Press R to Restart', 'Tempus Sans ITC', 50 );
+        reLabel.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 - 70 ) );
+        this.addChild( reLabel,100 );
 
         this.state = GameLayer.STATES.END;
    
