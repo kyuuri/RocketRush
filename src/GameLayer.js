@@ -54,6 +54,8 @@ var GameLayer = cc.LayerColor.extend({
         this.initPlayerLife();
 
         this.DAs = [ new DA1_FallenStar( this ), new DA2_DarkSpiral( this ) ];
+        this.DAused = [];
+        this.initDAused();
         this.runningDA = null;
         // this.runningDA = new DA2_DarkSpiral( this );
         // this.addChild( this.runningDA , 10 );
@@ -106,6 +108,22 @@ var GameLayer = cc.LayerColor.extend({
 
     },
 
+    initDAused: function(){
+        this.DAused = [];
+        for( var i = 0 ; i < this.DAs.length ; i++ ){
+            this.DAused.push(false);
+        }
+    },
+
+    checkDAallUse: function(){
+        for( var i = 0 ; i < this.DAs.length ; i++ ){
+            if( !this.DAused[i] ){
+                return false;
+            }
+        }
+        return true;
+    },
+
     addscoreOpacDown: function(){
         this.addScore.setOpacity(122);
     },
@@ -139,9 +157,9 @@ var GameLayer = cc.LayerColor.extend({
                 }
             }
         }
-        if( this.state == GameLayer.STATES.END ){
+        if( this.state == GameLayer.STATES.END && e == 82){
             var director = cc.Director.getInstance();
-            director.replaceScene(cc.TransitionFade.create( 1, new StartScene() ) );
+            director.replaceScene(cc.TransitionFade.create( 1, new Home() ) );
         }
     },
 
@@ -179,6 +197,14 @@ var GameLayer = cc.LayerColor.extend({
 
     getRandomDA: function(){
         var num = Math.floor( Math.random() * this.DAs.length );
+        while( this.DAused[ num ] ){
+            num = Math.floor( Math.random() * this.DAs.length );
+        }
+        this.DAused[ num ] = true;
+
+        if( this.checkDAallUse() ){
+            this.initDAused();
+        }
         return this.DAs[ num ];
     },
 
