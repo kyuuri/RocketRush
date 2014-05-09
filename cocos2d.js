@@ -31,6 +31,7 @@
             'src/DA1_FallenStar.js',
             'src/DA2_DarkSpiral.js',
             'src/DA3_RisingStar.js',
+            'src/DA4_Randomizer.js',
 
                  //add your own files in order here
         ]
